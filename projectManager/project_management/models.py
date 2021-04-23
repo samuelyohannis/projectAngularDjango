@@ -1,20 +1,16 @@
 from django.db import models
-from ..location_management.models import *
+
+# Create your models here.
+
+from location_management.models import  *
+
 from PIL import Image
+from django.utils.timezone import now
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from resizeimage import resizeimage
-# Create your models here.
-""" class Project(models.Model):
-    project_type = models.BooleanField()
-    region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
-    zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
-    wereda =  models.ForeignKey(Wereda,on_delete=models.CASCADE,null=True)
-    city =  models.ForeignKey(City,on_delete=models.CASCADE,null=True)
-    sub_city =  models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
-    kebele =  models.ForeignKey(Kebele,on_delete=models.CASCADE,null=True)
-    wereda_kebele =  models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
-    date = models.DateTimeField(auto_now=True)  """
+
+
 class Project(models.Model):
     name = models.CharField(max_length=100)
     catagory =  models.IntegerField(null=True)
@@ -82,6 +78,7 @@ class RegionProject(models.Model):
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
     img=models.ImageField(null=True,upload_to='images/countryProject')
+    
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
     
@@ -181,7 +178,7 @@ class WeredaKebeleProject(models.Model):
     end_date= models.DateField(null=True)
     desc = models.TextField(null=True)
     img=models.ImageField(null=True)
-    kebele = models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
+    wereda_kebele = models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -218,7 +215,7 @@ class CityProjectFiles(models.Model):
 class SubCityProjectFiles(models.Model):
     img = models.ImageField(upload_to = 'images/cityProJect',null=True)
     file = models.FileField(upload_to = 'files/cityProJect',null=True)
-    city_project = models.ForeignKey(SubCityProject,on_delete=models.CASCADE,)
+    sub_city_project = models.ForeignKey(SubCityProject,on_delete=models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)    
 class KebeleProjectFiles(models.Model):
     img = models.ImageField(upload_to = 'images/kebeleProJect',null=True)
@@ -228,5 +225,5 @@ class KebeleProjectFiles(models.Model):
 class WeredaKebeleProjectFiles(models.Model):
     img = models.ImageField(upload_to = 'images/kebeleProJect',null=True)
     file = models.FileField(upload_to = 'files/kebeleProJect',null=True)
-    kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+    wreda_kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)    

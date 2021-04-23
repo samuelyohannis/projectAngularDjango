@@ -42,7 +42,7 @@ class City(models.Model):
 class SubCity(models.Model):
     name = models.CharField(max_length=1000)
     img = models.ImageField(upload_to='city_images',null=True) 
-    wereda = models.ForeignKey(City,on_delete=models.CASCADE,null=True)
+    city = models.ForeignKey(City,on_delete=models.CASCADE,null=True)
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)          
 class Kebele(models.Model):
@@ -54,6 +54,6 @@ class Kebele(models.Model):
 class WeredaKebele(models.Model):
     name = models.CharField(max_length=1000)
     img= models.ImageField(upload_to='kebele_images',null=True) 
-    city =models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
+    sub_city =models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)    
