@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [ 
+    
     'project_management',
     'location_management',
     'user_management',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework','accounts',
     'corsheaders',
     'imagekit','knox',
+    'drf_yasg',
     'rest_framework.authtoken'
 ]
 REST_FRAMEWORK = {

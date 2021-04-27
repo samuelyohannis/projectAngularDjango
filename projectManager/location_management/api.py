@@ -23,46 +23,46 @@ class RegionViewSet(ViewSetCommonForAll):
     """
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
-    permission_classes= pcv1
+    permission_classes= pcv2
 class ZoneViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Zone.objects.all()
     serializer_class = ZoneSerializer
-    permission_classes= pcv1
+    permission_classes= pcv2
 class WeredaViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Wereda.objects.all()
     serializer_class = WeredaSerializer
-    permission_classes= pcv1      
+    permission_classes= pcv2      
 class CityViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = City.objects.all()
     serializer_class = CitySerializer
-    permission_classes= pcv1    
+    permission_classes= pcv2    
 class SubCityViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = SubCity.objects.all()
     serializer_class = SubCitySerializer
-    permission_classes= pcv1    
+    permission_classes= pcv2    
 class KebeleViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Kebele.objects.all()
     serializer_class = KebeleSerializer
-    permission_classes= pcv1    
+    permission_classes= pcv2    
 class WeredaKebeleViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = WeredaKebele.objects.all()
     serializer_class = WeredaKebeleSerializer
-    permission_classes= pcv1    
+    permission_classes= pcv2    

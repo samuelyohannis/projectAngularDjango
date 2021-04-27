@@ -48,7 +48,7 @@ class Role(models.Model) :
     name=  models.CharField(max_length=500)  
     date = models.DateTimeField(auto_now=True) 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="profile")
     bio = models.TextField(max_length=500, blank=True)
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
@@ -60,7 +60,7 @@ class Profile(models.Model):
     worklevel = models.ForeignKey(WorkLevel,on_delete=models.CASCADE,null=True)
     experiance =  models.TextField(null=True)
     role = models.OneToOneField(Role,on_delete=models.CASCADE,null=True)
-    img = models.ImageField(upload_to='profile/images',default='profile/images/empty-avatar.png')
+    img = models.ImageField(upload_to='profile/images',default='profile/images/empty-avatar.png',null=True)
     date = models.DateTimeField(auto_now=True)      
    
     """   def get_absolute_url(self):

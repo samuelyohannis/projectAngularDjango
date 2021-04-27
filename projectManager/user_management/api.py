@@ -36,4 +36,23 @@ class ProfileViewSet(ViewSetCommonForAll):
     API endpoint that allows groups to be viewed or edited. """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes= (permissions.IsAuthenticated,)  
+    permission_classes= (permissions.AllowAny,)  
+''' class UserProfileViewSet(ViewSetCommonForAll):
+    permission_classes= (permissions.AllowAny,)  
+    serializer_class = ProfileSerializer 
+     
+     
+    def get_object(self):
+        return self.request.user.profile
+    def get_queryset(self):
+            return  Profile.objects.filter(region=self.request.user.profile)    '''      
+        
+        
+class UserProfileViewSet(generics.RetrieveAPIView):
+  permission_classes = [
+    permissions.AllowAny,
+  ]
+  serializer_class = ProfileSerializer 
+
+  def get_object(self):
+    return self.request.user.profile        
