@@ -3,6 +3,9 @@ from .serializers import *
 from rest_framework.parsers import MultiPartParser,FormParser,JSONParser
 from rest_framework.response import Response
 from .models import *
+from itertools import chain
+from operator import itemgetter, attrgetter
+from rest_framework.decorators import api_view
 from location_management.models import *
 from django.shortcuts import get_object_or_404
 
@@ -14,16 +17,63 @@ prcv = [MultiPartParser,FormParser,JSONParser,]
 
 # if (False):
 #     from constants import *  
+SL =['CountryProjectSerializer','RegionProjectSerializer','ZoneProjectSerializer','WeredaProjectSerializer','CityProjectSerializer','KebeleProjectSerializer','SubCityProjectSerializer','WeredaKebeleProjectSerializer']
+ML =['CountryProject','RegionProject','ZoneProject','WeredaProject','CityProject','KebeleProject','SubCityProject','WeredaKebeleProject']
+gb =  globals()
+dc1 = globals()['DynamicSerializerClass']
 class ViewSetCommonForAll(viewsets.ModelViewSet):
     parser_classes = prcv
     
+@api_view(['GET'])
+def UserProjectList(request):
+     
+       project_list =[]
+       for x in range(len(ML)):
+         if(x==1):
+             project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(region=request.user.profile.region),many=True).data 
+         if(x==3):
+             project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(wereda=request.user.profile.wereda),many=True).data 
+         
+         if(x==2):
+              project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(zone=request.user.profile.zone),many=True).data 
+         
+         if(x==4):
+              project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(city=request.user.profile.city),many=True).data 
+         
+         if(x==5):
+              project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(kebele=request.user.profile.kebele),many=True).data 
+         ''' if(x==0):
+              project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(country=request.user.profile.country),many=True).data 
+          '''
+      
+       #sorted(problem_list, key=attrgetter("date"))
+       all_projects = sorted(project_list, key=itemgetter("date"))
+       return Response(all_projects)     
+@api_view(['GET'])
+def ProjectList(request):
+      
+       project_list =[]
+       for x in range(len(ML)):
+          project_list = project_list + gb[SL[x]](gb[ML[x]].objects.all(),many=True).data 
+      
+       #sorted(problem_list, key=attrgetter("date"))
+       
+       all_projects = sorted(project_list, key=itemgetter("date"))
+       return Response(all_projects)    
 class ProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes= pcv2  
+    permission_classes= pcv2
+class CountryProjectViewSet(ViewSetCommonForAll):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = CountryProject.objects.all()
+    serializer_class = CountryProjectSerializer
+    permission_classes= pcv2     
 class RegionProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.

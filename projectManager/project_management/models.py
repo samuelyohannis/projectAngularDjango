@@ -38,7 +38,7 @@ class ZoneProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True)
+    img=models.ImageField(null=True,upload_to='images/zoneProject')
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
@@ -77,7 +77,7 @@ class RegionProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/countryProject')
+    img=models.ImageField(null=True,upload_to='images/regionProject')
     
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
@@ -101,7 +101,7 @@ class WeredaProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True)
+    img=models.ImageField(null=True,upload_to='images/weredaProject')
     wereda = models.ForeignKey(Wereda,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
@@ -120,14 +120,14 @@ class CityProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True) 
-    img=models.ImageField(null=True)
+    img=models.ImageField(null=True,upload_to='images/cityProject')
     city = models.ForeignKey(City,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img  = Image.open(self.img.path)
         newWidth=500
-        newHeight =int(img.height*newWidth/img.width)
+        newHeight =int(img.height*newWidth/img.width) 
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)
 class SubCityProject(models.Model):
@@ -139,7 +139,7 @@ class SubCityProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True) 
-    img=models.ImageField(null=True)
+    img=models.ImageField(null=True,upload_to='images/subCityProject')
     sub_city = models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
@@ -158,7 +158,7 @@ class KebeleProject(models.Model):
     start_date = models.DateField(null=True)
     end_date= models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True)
+    img=models.ImageField(null=True,upload_to='images/kebeleProject')
     kebele = models.ForeignKey(Kebele,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
@@ -177,7 +177,7 @@ class WeredaKebeleProject(models.Model):
     start_date = models.DateField(null=True)
     end_date= models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True)
+    img=models.ImageField(null=True,upload_to='images/weredaKebeleProject')
     wereda_kebele = models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):

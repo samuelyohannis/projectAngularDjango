@@ -12,3 +12,4 @@ admin.site.register(Wereda)
 admin.site.register(Zone)
 admin.site.register(Contenent)
 admin.site.register(Country)
+
