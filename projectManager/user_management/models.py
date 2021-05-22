@@ -60,7 +60,7 @@ class Profile(models.Model):
     worklevel = models.ForeignKey(WorkLevel,on_delete=models.CASCADE,null=True)
     experiance =  models.TextField(null=True)
     role = models.OneToOneField(Role,on_delete=models.CASCADE,null=True)
-    img = models.ImageField(upload_to='profile/images',default='profile/images/empty-avatar.png',null=True)
+    img = models.ImageField(upload_to='profile/images',default='profile/images/avatar.jpg',null=True)
     date = models.DateTimeField(auto_now=True)      
    
     """   def get_absolute_url(self):

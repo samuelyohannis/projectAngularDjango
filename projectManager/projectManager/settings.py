@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'imagekit','knox',
     'drf_yasg',
     'level_management',
+    'comment_management',
     'rest_framework.authtoken',
     'role_management'
 ]
