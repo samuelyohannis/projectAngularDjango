@@ -1,0 +1,1 @@
+Start-Process cmd.exe  ;C:/Users/max/Envs/projectDjango3681/Scripts/Activate.ps1 ; Set-Location './projectManager' ; python manage.py runserver

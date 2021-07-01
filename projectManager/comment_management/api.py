@@ -54,7 +54,7 @@ def UserProjectCommentList(request):
 @api_view(['GET','POST'])
 def UserProjectCommentList1(request):
     if request.method=='POST':
-       print(request.POST.getlist('level'))
+       
        project_comment_list = []
        project_comment_profiles_dict={}
        project_comment_profiles=[]
@@ -131,21 +131,21 @@ class ProjectCommentViewSet(ViewSetCommonForAll):
     """
     queryset = ProjectComment.objects.all()
     serializer_class = ProjectCommentSerializer
-    permission_classes= pcv2
+    permission_classes= pcv1
 class CountryProjectCommentViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = CountryProjectComment.objects.all()
     serializer_class = CountryProjectCommentSerializer
-    permission_classes= pcv2     
+    permission_classes= pcv1     
 class RegionProjectCommentViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = RegionProjectComment.objects.all()
     serializer_class = RegionProjectCommentSerializer
-    permission_classes= pcv2 
+    permission_classes= pcv1 
     
 class ZoneProjectCommentViewSet(ViewSetCommonForAll):
     """
@@ -153,7 +153,7 @@ class ZoneProjectCommentViewSet(ViewSetCommonForAll):
     """
     queryset = ZoneProjectComment.objects.all()
     serializer_class = ZoneProjectCommentSerializer
-    permission_classes= pcv2 
+    permission_classes= pcv2
     
 class WeredaProjectCommentViewSet(ViewSetCommonForAll):
     """
@@ -161,7 +161,7 @@ class WeredaProjectCommentViewSet(ViewSetCommonForAll):
     """
     queryset = WeredaProjectComment.objects.all()
     serializer_class = WeredaProjectCommentSerializer
-    permission_classes= pcv2 
+    permission_classes= pcv1 
     
 class CityProjectCommentViewSet(ViewSetCommonForAll):
     """
@@ -169,14 +169,14 @@ class CityProjectCommentViewSet(ViewSetCommonForAll):
     """
     queryset = CityProjectComment.objects.all()
     serializer_class = CityProjectCommentSerializer
-    permission_classes= pcv2 
+    permission_classes= pcv1 
     
     
 class KebeleProjectCommentViewSet(ViewSetCommonForAll):
 
     queryset = KebeleProjectComment.objects.all()
     serializer_class = KebeleProjectCommentSerializer
-    permission_classes= pcv2                
+    permission_classes= pcv1                
 class UserRegionProjectComment(ViewSetCommonForAll):
     queryset = RegionProjectComment.objects.all()
     serializer_class = RegionProjectCommentSerializer 

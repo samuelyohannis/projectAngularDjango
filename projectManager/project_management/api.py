@@ -48,7 +48,6 @@ def UserProjectList(request):
       
        #sorted(problem_list, key=attrgetter("date"))
        all_projects = sorted(project_list, key=itemgetter("id"))
-       print(all_projects)
        return Response(all_projects)     
 @api_view(['GET'])
 def ProjectList(request):

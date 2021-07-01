@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'level_management',
     'comment_management',
     'rest_framework.authtoken',
-    'role_management'
+    'role_management',
+    'notification_management'
+    ,'complain_management',
+    
 ]
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
