@@ -10,10 +10,12 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from resizeimage import resizeimage
 
-
+class ProjectCategory(models.Model):
+    name = models.CharField(max_length=1000)
+    date = models.DateTimeField(auto_now=True)
 class Project(models.Model):
     name = models.CharField(max_length=100)
-    catagory =  models.IntegerField(null=True)
+    catagory =  models.ForeignKey(ProjectCategory,on_delete=models.SET_NULL,null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
     level= models.IntegerField(null=True)
@@ -77,7 +79,7 @@ class RegionProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/regionProject')
+    img=models.ImageField(null=True,upload_to='images/regionProject',default='images/regionProject/regions.jpg')
     
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)

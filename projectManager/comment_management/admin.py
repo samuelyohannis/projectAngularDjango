@@ -6,7 +6,9 @@ from .models import *
 # Register your models here.
 admin.site.register(RegionProjectComment)
 admin.site.register(CityProjectComment)
+admin.site.register(SubCityProjectComment)
 admin.site.register(KebeleProjectComment)
+admin.site.register(WeredaKebeleProjectComment)
 admin.site.register(WeredaProjectComment)
 admin.site.register(ZoneProjectComment)
 admin.site.register(CountryProjectComment)

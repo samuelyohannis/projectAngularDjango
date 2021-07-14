@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [ 
-    
+    'progress_management' ,
+    'complain_management',
     'project_management',
     'location_management',
     'user_management',
@@ -44,14 +45,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework','accounts',
     'corsheaders',
-    'imagekit','knox',
+    'imagekit',
+    'knox',
     'drf_yasg',
     'level_management',
     'comment_management',
     'rest_framework.authtoken',
     'role_management',
-    'notification_management'
-    ,'complain_management',
+    'notification_management',
+    'permission_management',
+    'create_management',
+    'retrieve_management',
+    'list_management',
+    'detail_management',
+    'update_management',
+    'delete_management'
     
 ]
 REST_FRAMEWORK = {

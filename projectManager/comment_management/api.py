@@ -30,7 +30,14 @@ class ViewSetCommonForAll(viewsets.ModelViewSet):
 def UserProjectCommentList(request):
      
        project_comment_list =[]
+       
        for x in range(len(ML)):
+         
+            project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id),many=True).data 
+       all_project_comments = sorted(project_comment_list, key=itemgetter("date"))
+       return Response(all_project_comments) 
+      
+'''  for x in range(len(ML)):
          if(x==1):
              project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id),many=True).data 
          if(x==3):
@@ -43,25 +50,22 @@ def UserProjectCommentList(request):
               project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id),many=True).data 
          
          if(x==5):
-              project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id),many=True).data 
-         ''' if(x==0):
-              project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(country=request.user.profile.country),many=True).data 
-          '''
+              project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id),many=True).data  '''
+         
       
        #sorted(problem_list, key=attrgetter("date"))
-       all_project_comments = sorted(project_comment_list, key=itemgetter("date"))
-       return Response(all_project_comments) 
+       
 @api_view(['GET','POST'])
 def UserProjectCommentList1(request):
     if request.method=='POST':
-       
        project_comment_list = []
        project_comment_profiles_dict={}
        project_comment_profiles=[]
        project_comment_profile_ids=[]
        for x in range(len(ML)):
-        
-         if(x==1):
+         for y in range(len(request.POST.getlist('level'))):
+                 project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(level=request.POST.getlist('level')[y],project=request.POST.getlist('project')[y]),many=True).data 
+         '''if(x==1):
             for y in range(len(request.POST.getlist('level'))):
              project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(level=request.POST.getlist('level')[y],project=request.POST.getlist('project')[y]),many=True).data 
          if(x==3):
@@ -79,7 +83,7 @@ def UserProjectCommentList1(request):
          if(x==5):
              for y in range(len(request.POST.getlist('level'))):
               project_comment_list = project_comment_list + gb[SL[x]](gb[ML[x]].objects.filter(level=request.POST.getlist('level')[y],project=request.POST.getlist('project')[y]),many=True).data 
-        
+         '''
        for x1 in range(len(project_comment_list)):
            
            if project_comment_list[x1]['profile'] not in  project_comment_profile_ids:
@@ -92,17 +96,30 @@ def UserProjectCommentList1(request):
        all_project_comments = sorted(project_comment_list, key=itemgetter("project"))
        return Response({"comments":all_project_comments,"profiles":project_comment_profiles_dict})
    
-""" class UserProjectCommentList1(generics.GenericAPIView):
-      serializer_class = RegisterSerializer
-
-  def post(self, request, *args, **kwargs):
-    serializer = self.get_serializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    user = serializer.save()
-    return Response({
-      "user": UserSerializer1(user, context=self.get_serializer_context()).data,
-      "token": AuthToken.objects.create(user)[1]
-    })          """  
+@api_view(['POST'])
+def RelatedListProvider(request,*args):
+    if request.method=='POST':
+       list1 = []
+       profiles_dict={}
+       profiles=[]
+       profile_ids=[]
+       for x in range(len(args[2])):
+         for y in range(len(request.POST.getlist(args[1][0]))):
+             list1 = list1 + gb[args[3][x]](gb[args[2][x]].objects.filter(level=request.POST.getlist(args[1][0])[y],project=request.POST.getlist(args[1][1])[y]),many=True).data 
+        
+       for x1 in range(len(list1)):
+           
+           if list1[x1]['profile'] not in profile_ids:
+            profiles =profiles + ProfileSerializer(Profile.objects.filter(id=list1[x1]["profile"]),many=True).data
+            profile_ids.append(list1[x1][args[1]])
+       for x1 in range(len(profiles)):
+           
+           profiles_dict[profiles[x1]['id']] =  profiles[x1]
+       #sorted(problem_list, key=attrgetter("date"))
+       list1 = sorted(list1, key=itemgetter(args[1]))
+       return Response({"list1":list1,"profiles":profiles_dict})
+    else:
+        return  Response( {"error":'this request method is not supported'})
 @api_view(['GET'])
 def ProjectCommentList(request):
       
