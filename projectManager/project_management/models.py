@@ -1,3 +1,4 @@
+from progress_management.models import Progress
 from django.db import models
 
 # Create your models here.
@@ -227,5 +228,31 @@ class KebeleProjectFiles(models.Model):
 class WeredaKebeleProjectFiles(models.Model):
     img = models.ImageField(upload_to = 'images/kebeleProJect',null=True)
     file = models.FileField(upload_to = 'files/kebeleProJect',null=True)
-    wreda_kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+    wereda_kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True) 
+    
+class CountryProjectProgress(Progress): 
+    country_project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)    
+class RegionProjectProgress(Progress):
+    region_project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class ZoneProjectProgress(Progress):
+    zone_project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class WeredaProjectProgress(Progress):
+    wereda_project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True) 
+class CityProjectProgress(Progress):
+    city_project = models.ForeignKey(CityProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class SubCityProjectProgress(Progress):
+    sub_city_project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class KebeleProjectProgress(Progress):
+    kebele_project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class WeredaKebeleProjectProgress(Progress):
+    
+    wereda_kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)                                

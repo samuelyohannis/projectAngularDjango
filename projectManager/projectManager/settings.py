@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [ 
+         'file_management',
     'progress_management' ,
     'complain_management',
     'project_management',

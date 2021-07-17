@@ -17,7 +17,7 @@ class Comment(models.Model):
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)
 class ProjectComment(models.Model):
-    profile= models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+    profile = models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
     level = models.OneToOneField(Level, on_delete=models.SET_NULL ,null=True)
     name = models.CharField(max_length=100)
     desc = models.TextField(null=True)
