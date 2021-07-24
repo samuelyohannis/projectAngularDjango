@@ -1,0 +1,1 @@
+Start-Process cmd.exe  ; git init; git add . ; git commit -m 'new';git push origin master;

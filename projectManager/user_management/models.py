@@ -1,6 +1,7 @@
 
 
 # Create your models here.
+from level_management.models import Level
 from django.db import models
 from django.contrib.auth.models import User
 from location_management.models import *
@@ -41,9 +42,7 @@ class Admin(models.Model):
     date = models.DateTimeField(auto_now=True)         
     
 # Create your models here.                   
-class WorkLevel(models.Model):
-    name = models.CharField(max_length=500)
-    date = models.DateTimeField(auto_now=True) 
+
 class Role(models.Model) :
     name=  models.CharField(max_length=500)  
     date = models.DateTimeField(auto_now=True) 
@@ -57,7 +56,7 @@ class Profile(models.Model):
     sub_city =  models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
     kebele =  models.ForeignKey(Kebele,on_delete=models.CASCADE,null=True)
     wereda_kebele =  models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
-    worklevel = models.ForeignKey(WorkLevel,on_delete=models.CASCADE,null=True)
+    worklevel = models.ForeignKey(Level,on_delete=models.CASCADE,null=True)
     experiance =  models.TextField(null=True)
     role = models.OneToOneField(Role,on_delete=models.CASCADE,null=True)
     img = models.ImageField(upload_to='profile/images',default='profile/images/avatar.jpg',null=True)
@@ -96,3 +95,7 @@ class About(models.Model):
     contact = models.OneToOneField(Contact,on_delete=models.CASCADE,null=True)
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)    
+class CustomGroup(models.Model):
+     user = models.OneToOneField(User,on_delete=models.SET_NULL,null=True)
+     group = models.TextField(null=True)
+     date = models.DateTimeField(auto_now=True) 

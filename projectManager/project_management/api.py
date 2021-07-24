@@ -86,7 +86,7 @@ class ZoneProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = RegionProject.objects.all()
+    queryset = ZoneProject.objects.all()
     serializer_class = RegionProjectSerializer
     permission_classes= pcv2 
     
@@ -94,8 +94,8 @@ class WeredaProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = ZoneProject.objects.all()
-    serializer_class = ZoneProjectSerializer
+    queryset = WeredaProject.objects.all()
+    serializer_class = WeredaProjectSerializer
     permission_classes= pcv2 
     
 class CityProjectViewSet(ViewSetCommonForAll):

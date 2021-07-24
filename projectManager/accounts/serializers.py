@@ -18,7 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     extra_kwargs = {'password': {'write_only': True},}
   
   def Convert(self,string1): 
-      li = list(string1.split(" ")) 
+      li = list(string1.split(",")) 
       return li    
 
   def create(self, validated_data):
@@ -33,8 +33,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     # def Convert(string): 
     # li = list(string.split(" ")) 
     # return li 
-   
-    user.groups.add(validated_data['groups'][0],validated_data['groups'][1])
+    print(validated_data['groups'])
+    user.groups.set(list(validated_data['groups']))
+   # user.groups.add(validated_data['groups'][0],validated_data['groups'][1])
     #user.groups.add(validated_data['groups'][1])
     #user.groups.set([validated_data['groups'][0]])
    # user.groups.set(validated_data['groups'])

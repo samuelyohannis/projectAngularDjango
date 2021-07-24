@@ -11,6 +11,7 @@ from resizeimage import resizeimage
 
 class Report(models.Model):
     name = models.CharField(max_length=1000)
+    desc =models.TextField()
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
     

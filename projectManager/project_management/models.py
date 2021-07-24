@@ -26,6 +26,7 @@ class Project(models.Model):
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
+     
         super().save(*args,**kwargs)
         img  = Image.open(self.img.path)
         newWidth=500
@@ -41,11 +42,12 @@ class ZoneProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/zoneProject')
+    img=models.ImageField(null=True,upload_to='images/weredaProject')
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
+       
         img  = Image.open(self.img.path)
         newWidth=500
         newHeight =int(img.height*newWidth/img.width)
@@ -104,10 +106,12 @@ class WeredaProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/weredaProject')
+    img=models.ImageField(upload_to='images/weredaProject',null=True,default='images/project-logo.png')
     wereda = models.ForeignKey(Wereda,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
+    
     def save(self,*args,**kwargs):
+    
         super().save(*args,**kwargs)
         img  = Image.open(self.img.path)
         newWidth=500
