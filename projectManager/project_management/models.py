@@ -42,7 +42,7 @@ class ZoneProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/weredaProject')
+    img=models.ImageField(null=True,upload_to='images/weredaProject',default='images/project-logo.png')
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
@@ -62,7 +62,7 @@ class CountryProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
-    img = models.ImageField(null=True,upload_to='images/countryProject')
+    img = models.ImageField(null=True,upload_to='images/countryProject',default='images/project-logo.png')
     country = models.ForeignKey(Country,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)  
     def save(self,*args,**kwargs):
@@ -127,7 +127,7 @@ class CityProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True) 
-    img=models.ImageField(null=True,upload_to='images/cityProject')
+    img=models.ImageField(null=True,upload_to='images/cityProject',default='images/project-logo.png')
     city = models.ForeignKey(City,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
@@ -146,7 +146,7 @@ class SubCityProject(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True) 
-    img=models.ImageField(null=True,upload_to='images/subCityProject')
+    img=models.ImageField(upload_to='images/subCityProject',null=True,default='images/project-logo.png')
     sub_city = models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
@@ -165,7 +165,7 @@ class KebeleProject(models.Model):
     start_date = models.DateField(null=True)
     end_date= models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/kebeleProject')
+    img=models.ImageField(upload_to='images/kebeleProject',null=True,default='images/project-logo.png')
     kebele = models.ForeignKey(Kebele,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
@@ -184,7 +184,7 @@ class WeredaKebeleProject(models.Model):
     start_date = models.DateField(null=True)
     end_date= models.DateField(null=True)
     desc = models.TextField(null=True)
-    img=models.ImageField(null=True,upload_to='images/weredaKebeleProject')
+    img=models.ImageField(null=True,upload_to='images/weredaKebeleProject',default='images/project-logo.png')
     wereda_kebele = models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
