@@ -1,7 +1,7 @@
 
 
 # Create your models here.
-from level_management.models import Level
+
 from django.db import models
 from django.contrib.auth.models import User
 from location_management.models import *
@@ -56,9 +56,10 @@ class Profile(models.Model):
     sub_city =  models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
     kebele =  models.ForeignKey(Kebele,on_delete=models.CASCADE,null=True)
     wereda_kebele =  models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
-    worklevel = models.ForeignKey(Level,on_delete=models.CASCADE,null=True)
+    worklevel=models.IntegerField(null=True)
+    role = models.IntegerField(null=True)
     experiance =  models.TextField(null=True)
-    role = models.OneToOneField(Role,on_delete=models.CASCADE,null=True)
+   
     img = models.ImageField(upload_to='profile/images',default='profile/images/avatar.jpg',null=True)
     date = models.DateTimeField(auto_now=True)      
    

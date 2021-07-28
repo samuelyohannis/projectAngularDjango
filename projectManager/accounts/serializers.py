@@ -34,8 +34,8 @@ class RegisterSerializer(serializers.ModelSerializer):
     # li = list(string.split(" ")) 
     # return li 
     print(validated_data['groups'])
-    user.groups.set(list(validated_data['groups']))
-   # user.groups.add(validated_data['groups'][0],validated_data['groups'][1])
+    #user.groups.set(list(validated_data['groups'][0]))
+    # user.groups.add(validated_data['groups'][0])
     #user.groups.add(validated_data['groups'][1])
     #user.groups.set([validated_data['groups'][0]])
    # user.groups.set(validated_data['groups'])
