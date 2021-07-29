@@ -63,7 +63,7 @@ class CountryProject(models.Model):
     end_date = models.DateField(null=True)
     desc = models.TextField(null=True)
     img = models.ImageField(null=True,upload_to='images/countryProject',default='images/project-logo.png')
-    country = models.ForeignKey(Country,on_delete=models.CASCADE,null=True)
+    country = models.ForeignKey(Country,on_delete=models.CASCADE,default=1)
     date = models.DateTimeField(auto_now=True)  
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
