@@ -1,1 +1,1 @@
-Start-Process cmd.exe  ; git init; git add . ; git commit -m 'new';git push origin master;
+Start-Process cmd.exe  ;C:/Users/max/Envs/projectDjango3681/Scripts/Activate.ps1 ; git init; git add . ; git commit -m 'new';git push origin master;
