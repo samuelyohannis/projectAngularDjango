@@ -9,8 +9,6 @@ from rest_framework.decorators import api_view
 from location_management.models import *
 from django.shortcuts import get_object_or_404
 
-
-
 pcv1 = [permissions.IsAuthenticated,]
 pcv2 = [permissions.AllowAny,]
 prcv = [MultiPartParser,FormParser,JSONParser,]
@@ -87,7 +85,7 @@ class ZoneProjectViewSet(ViewSetCommonForAll):
     API endpoint that allows users to be viewed or edited.
     """
     queryset = ZoneProject.objects.all()
-    serializer_class = RegionProjectSerializer
+    serializer_class = ZoneProjectSerializer
     permission_classes= pcv2 
     
 class WeredaProjectViewSet(ViewSetCommonForAll):

@@ -1,4 +1,4 @@
-from projectManager.file_management.models import File
+from file_management.models import File
 from django.db import models
 
 # Create your models here.

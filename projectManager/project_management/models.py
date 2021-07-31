@@ -1,3 +1,4 @@
+from report_management.models import Report
 from progress_management.models import Progress
 from django.db import models
 
@@ -236,27 +237,54 @@ class WeredaKebeleProjectFiles(models.Model):
     date_modified = models.DateTimeField(auto_now=True) 
     
 class CountryProjectProgress(Progress): 
-    country_project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)    
 class RegionProjectProgress(Progress):
-    region_project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)
 class ZoneProjectProgress(Progress):
-    zone_project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)
 class WeredaProjectProgress(Progress):
-    wereda_project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True) 
 class CityProjectProgress(Progress):
-    city_project = models.ForeignKey(CityProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(CityProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)
 class SubCityProjectProgress(Progress):
-    sub_city_project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)
 class KebeleProjectProgress(Progress):
-    kebele_project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)
 class WeredaKebeleProjectProgress(Progress):
     
-    wereda_kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+    project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)                                
+    
+    
+class CountryProjectReport(Report): 
+    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)    
+class RegionProjectReport(Report):
+    project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class ZoneProjectReport(Report):
+    project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class WeredaProjectReport(Report):
+    project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True) 
+class CityProjectReport(Report):
+    project = models.ForeignKey(CityProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class SubCityProjectReport(Report):
+    project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class KebeleProjectReport(Report):
+    project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)
+class WeredaKebeleProjectReport(Report):
+    
+    project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+    date_modified = models.DateTimeField(auto_now=True)          

@@ -39,6 +39,40 @@ class CountryProjectSerializer(serializers.ModelSerializer):
   class Meta:
     model = CountryProject
     fields = '__all__'   
+class WeredaKebeleProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = WeredaKebeleProjectReport
+    fields = '__all__'       
+class KebeleProjectReportSerializer(serializers.ModelSerializer):
+   class Meta:
+    model = KebeleProjectReport
+    fields = '__all__'       
+class WeredaProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = WeredaProjectReport
+    fields = '__all__'   
+class CityProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = CityProjectReport
+    fields = '__all__'       
+class SubCityProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = SubCityProjectReport
+    fields = '__all__'   
+    
+class ZoneProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = ZoneProjectReport
+    fields = '__all__'    
+    
+class RegionProjectReportSerializer(serializers.ModelSerializer):
+   class Meta:
+    model = RegionProjectReport
+    fields = '__all__'                
+class CountryProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = CountryProjectReport
+    fields = '__all__'                 
 class CommonSerializer(serializers.ModelSerializer):
      
   class Meta:
