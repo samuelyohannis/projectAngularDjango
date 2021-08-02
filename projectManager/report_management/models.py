@@ -1,3 +1,4 @@
+from django.db.models.fields.related import OneToOneField
 from file_management.models import File
 from django.db import models
 
@@ -15,6 +16,7 @@ class Report(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
     
-class ReportFile(File):
+class ReportFile(models.Model):
+     file= OneToOneField(File,on_delete= models.SET_NULL,null=True)
      report = models.ForeignKey(Report,on_delete=models.SET_NULL,null=True)
         

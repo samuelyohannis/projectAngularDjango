@@ -17,6 +17,8 @@ prcv = [MultiPartParser,FormParser,JSONParser,]
 #     from constants import *  
 SL =['CountryProjectSerializer','RegionProjectSerializer','ZoneProjectSerializer','WeredaProjectSerializer','CityProjectSerializer','KebeleProjectSerializer','SubCityProjectSerializer','WeredaKebeleProjectSerializer']
 ML =['CountryProject','RegionProject','ZoneProject','WeredaProject','CityProject','KebeleProject','SubCityProject','WeredaKebeleProject']
+SL1 =['CountryProjectReportSerializer','RegionProjectReportSerializer','ZoneProjectReportSerializer','WeredaProjectReportSerializer','CityProjectReportSerializer','KebeleProjectReportSerializer','SubCityProjectReportSerializer','WeredaKebeleProjectReportSerializer']
+ML1 =['CountryProjectReport','RegionProjectReport','ZoneProjectReport','WeredaProjectReport','CityProjectReport','KebeleProjectReport','SubCityProjectReport','WeredaKebeleProjectReport']
 gb =  globals()
 dc1 = globals()['DynamicSerializerClass']
 class ViewSetCommonForAll(viewsets.ModelViewSet):
@@ -27,6 +29,8 @@ def UserProjectList(request):
      
        project_list =[]
        for x in range(len(ML)):
+         if(x==0):
+             project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(country=request.user.profile.country),many=True).data   
          if(x==1):
              project_list = project_list + gb[SL[x]](gb[ML[x]].objects.filter(region=request.user.profile.region),many=True).data 
          if(x==3):
@@ -153,3 +157,15 @@ class CountryViewSet(ViewSetCommonForAll):
   
     queryset = Country.objects.all()
     serializer_class = CountrySerializer  '''       
+    
+@api_view(['GET'])
+def UserProjectReportList(request):
+    
+       project_report_list =[]
+       for x in range(len(ML1)):
+              project_report_list =  project_report_list + gb[SL1[x]](gb[ML1[x]].objects.filter(profile=request.user.profile.id),many=True).data   
+        
+      
+       #sorted(problem_list, key=attrgetter("date"))
+       all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
+       return Response(all_project_report_list)          

@@ -164,13 +164,7 @@ class RegionProjectCommentViewSet(ViewSetCommonForAll):
     serializer_class = RegionProjectCommentSerializer
     permission_classes= pcv1 
     
-class ZoneProjectCommentViewSet(ViewSetCommonForAll):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = ZoneProjectComment.objects.all()
-    serializer_class = ZoneProjectCommentSerializer
-    permission_classes= pcv2
+
     
 class WeredaProjectCommentViewSet(ViewSetCommonForAll):
     """
@@ -199,11 +193,7 @@ class UserRegionProjectComment(ViewSetCommonForAll):
     serializer_class = RegionProjectCommentSerializer 
     def get_queryset(self):
             return RegionProjectComment.objects.filter(region=self.request.user.profile.region)
-class UserZoneProjectComment(ViewSetCommonForAll):
-    queryset = ZoneProjectComment.objects.all()    
-    serializer_class = ZoneProjectCommentSerializer 
-    def get_queryset(self):
-            return ZoneProjectComment.objects.filter(region=self.request.user.profile.region)   
+   
         
         
 class UserWeredaProjectComment(ViewSetCommonForAll):
@@ -223,17 +213,4 @@ class UserKebeleProjectComment(ViewSetCommonForAll):
     serializer_class = KebeleProjectCommentSerializer 
     def get_queryset(self):
             return KebeleProjectComment.objects.filter(region=self.request.user.profile.region) 
-        
-''' class UserRegionProjects(ViewSetCommonForAll):
-    
-    serializer_class = RegionProjectSerializer 
-    def get_queryset(self):
-            return RegionProject.objects.filter(region=self.request.user.profile.region)     '''                            
-''' class ContenentViewSet(ViewSetCommonForAll):
-  
-    queryset = Contenent.objects.all()
-    serializer_class = ContenentSerializer
-class CountryViewSet(ViewSetCommonForAll):
-  
-    queryset = Country.objects.all()
-    serializer_class = CountrySerializer  '''       
+

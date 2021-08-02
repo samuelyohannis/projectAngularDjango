@@ -17,14 +17,14 @@ class Comment(models.Model):
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)
 class ProjectComment(models.Model):
-    profile = models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+   
     level = models.OneToOneField(Level, on_delete=models.SET_NULL ,null=True)
     name = models.CharField(max_length=100)
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)
     
 class CountryProjectComment(models.Model):
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
     level = models.IntegerField(null=True,default=1)
     name = models.CharField(max_length=100)
     project = models.ForeignKey(CountryProject,on_delete=models.SET_NULL,null=True)
@@ -33,33 +33,35 @@ class CountryProjectComment(models.Model):
     
     
 class RegionProjectComment(models.Model):
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
     level = models.IntegerField(null=True,default=2)
     name = models.CharField(max_length=100)
     project = models.ForeignKey(RegionProject,on_delete=models.SET_NULL,null=True)
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)  
     
-class ZoneProjectComment(models.Model):
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
-    level = models.IntegerField(null=True,default=3)
-    name = models.CharField(max_length=100)
-    project = models.ForeignKey(ZoneProject,on_delete=models.SET_NULL,null=True)
-    desc = models.TextField(null=True)
-    date = models.DateTimeField(auto_now=True)          
+   
     
     
 class WeredaProjectComment(models.Model):
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
     level = models.IntegerField(null=True,default=4)
     name = models.CharField(max_length=100)
     project = models.ForeignKey(WeredaProject,on_delete=models.SET_NULL,null=True)
     desc = models.TextField(null=True)
     date = models.DateTimeField(auto_now=True)      
-    
-class CityProjectComment(models.Model):
+class ZoneProjectComment(models.Model):
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
     level = models.IntegerField(null=True,default=5)
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+   
+    name = models.CharField(max_length=100)
+    project = models.ForeignKey(ZoneProject,on_delete=models.SET_NULL,null=True)
+    desc = models.TextField(null=True)
+    date = models.DateTimeField(auto_now=True)    
+class CityProjectComment(models.Model):
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
+    level = models.IntegerField(null=True,default=5)
+   
     name = models.CharField(max_length=100)
     project = models.ForeignKey(CityProject,on_delete=models.SET_NULL,null=True)
     desc = models.TextField(null=True)
@@ -67,7 +69,7 @@ class CityProjectComment(models.Model):
     
     
 class SubCityProjectComment(models.Model):
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
     level = models.IntegerField(null=True,default=6)
     name = models.CharField(max_length=100)
     project = models.ForeignKey(SubCityProject,on_delete=models.SET_NULL,null=True)
@@ -75,7 +77,8 @@ class SubCityProjectComment(models.Model):
     date = models.DateTimeField(auto_now=True)      
     
 class KebeleProjectComment(models.Model):
-    profile= models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True) 
+    
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True)
     level = models.IntegerField(null=True,default=7)
     name = models.CharField(max_length=100)
     project = models.ForeignKey(KebeleProject,on_delete=models.SET_NULL,null=True)
@@ -83,7 +86,7 @@ class KebeleProjectComment(models.Model):
     date = models.DateTimeField(auto_now=True)  
     
 class WeredaKebeleProjectComment(models.Model):
-    profile=models.ForeignKey(Profile,on_delete=models.SET_NULL ,null=True)  
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE ,null=True) 
     level = models.IntegerField(null=True,default=8)
     name = models.CharField(max_length=100)
     project = models.ForeignKey(WeredaKebeleProject,on_delete=models.SET_NULL,null=True)

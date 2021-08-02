@@ -48,6 +48,7 @@ class Role(models.Model) :
     date = models.DateTimeField(auto_now=True) 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="profile")
+    country = models.ForeignKey(Country,on_delete=models.CASCADE,default=1)
     bio = models.TextField(max_length=500, blank=True)
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)

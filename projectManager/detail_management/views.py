@@ -11,9 +11,9 @@ from rest_framework import status
 # Create your views here.
 class Detail(APIView):
    
-    def get_object(self, pk1):
+    def get_object(self, pk):
         try:
-            return self.Model.objects.get(pk=pk1)
+            return self.Model.objects.get(pk=pk)
         except self.Model.DoesNotExist:
             raise Http404    
     @classmethod
@@ -30,4 +30,7 @@ class Detail(APIView):
         serializer = self.Serializer(object)
        
         return Response(serializer.data)
+def detailFactory():
+       
+     return  type('',   (Detail,), dict())    
        

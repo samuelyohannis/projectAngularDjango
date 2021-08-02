@@ -43,6 +43,7 @@ class WeredaKebeleProjectReportSerializer(serializers.ModelSerializer):
   class Meta:
     model = WeredaKebeleProjectReport
     fields = '__all__'       
+
 class KebeleProjectReportSerializer(serializers.ModelSerializer):
    class Meta:
     model = KebeleProjectReport

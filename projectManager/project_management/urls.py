@@ -1,6 +1,13 @@
+from list_management.views import listFactory
+from .models import *
+from .serializers import *
+from crud_management.views import crudFactory
+from detail_management.views import detailFactory
+
 from django.urls import include, path
 from rest_framework import routers
 from . import api
+
 router = routers.DefaultRouter()
 router.register(r'project', api.ProjectViewSet)
 router.register(r'country-project', api.CountryProjectViewSet)
@@ -25,5 +32,15 @@ router.register(r'user-kebele-project', api.UserKebeleProject)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [path('all', api.ProjectList),
                path('all-user', api.UserProjectList),
-    path('', include(router.urls)),
-]
+               path('country/report/',crudFactory().as_view(CountryProjectReportSerializer,CountryProjectReport)),
+               path('country/report/<int:pk>', detailFactory().as_view(CountryProjectReportSerializer,CountryProjectReport)),
+               path('region/report',crudFactory().as_view(RegionProjectReportSerializer,RegionProjectReport)),
+               path('region/report/<int:pk>/', detailFactory().as_view(RegionProjectReportSerializer,RegionProjectReport)),
+               path('zone/report',crudFactory().as_view(ZoneProjectReportSerializer,ZoneProjectReport)),
+               path('zone/report/<int:pk>/', detailFactory().as_view(ZoneProjectReportSerializer,ZoneProjectReport)),
+               path('wereda/report',crudFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
+               path('wereda/report/<int:pk>/', detailFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
+               path('user/reports/',api.UserProjectReportList),
+              
+               path('', include(router.urls))
+             ]

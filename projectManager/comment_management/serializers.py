@@ -10,10 +10,7 @@ class RegionProjectCommentSerializer(serializers.ModelSerializer):
   class Meta:
     model = RegionProjectComment 
     fields = '__all__'
-class ZoneProjectCommentSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = ZoneProjectComment 
-    fields = '__all__'    
+
 class WeredaProjectCommentSerializer(serializers.ModelSerializer):
   class Meta:
     model = WeredaProjectComment 
@@ -29,7 +26,11 @@ class KebeleProjectCommentSerializer(serializers.ModelSerializer):
 class SubCityProjectCommentSerializer(serializers.ModelSerializer):
       class Meta:
        model = SubCityProjectComment 
-       fields = '__all__'    
+       fields = '__all__'  
+class ZoneProjectCommentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  ZoneProjectComment 
+    fields = '__all__'              
 class WeredaKebeleProjectCommentSerializer(serializers.ModelSerializer):
   class Meta:
     model =  WeredaKebeleProjectComment 

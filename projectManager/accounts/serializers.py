@@ -14,7 +14,7 @@ class UserSerializer1(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ('id', 'username', 'email', 'password','groups')
+    fields = ('id', 'username', 'email', 'password')
     extra_kwargs = {'password': {'write_only': True},}
   
   def Convert(self,string1): 
@@ -33,7 +33,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     # def Convert(string): 
     # li = list(string.split(" ")) 
     # return li 
-    print(validated_data['groups'])
+    
     #user.groups.set(list(validated_data['groups'][0]))
     # user.groups.add(validated_data['groups'][0])
     #user.groups.add(validated_data['groups'][1])

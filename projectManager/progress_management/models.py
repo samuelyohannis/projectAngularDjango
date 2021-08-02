@@ -14,6 +14,7 @@ class Progress(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
     
-class ProgressFile(File):
+class ProgressFile(models.Model):
+     file = models.OneToOneField(File,  on_delete=models.CASCADE,null=True)
      progress = models.ForeignKey(Progress,on_delete=models.SET_NULL,null=True)
     
