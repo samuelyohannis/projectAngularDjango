@@ -161,11 +161,48 @@ class CountryViewSet(ViewSetCommonForAll):
 @api_view(['GET'])
 def UserProjectReportList(request):
     
+       related_project_list = []
+       project_ids = []
+       level_ids = []
        project_report_list =[]
        for x in range(len(ML1)):
               project_report_list =  project_report_list + gb[SL1[x]](gb[ML1[x]].objects.filter(profile=request.user.profile.id),many=True).data   
+              
+       for x1 in range(len(project_report_list)):
+        #if project_report_list[x1]['project'] not in project_ids:
+                 project_ids.append(project_report_list[x1]['project'])
+       print(project_ids)
+       
+       for x1 in range(len(project_report_list)):
+                 level_ids.append(project_report_list[x1]['worklevel'])          
+       print(level_ids) 
+   
+       
+       for x2 in range(len(ML)):   
+                  related_project_list=related_project_list+ gb[SL[x2]](gb[ML[x2]].objects.filter(reported=True,profile=request.user.profile.id),many=True).data
+             
+      
+       all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
+       return Response({"user_reports":all_project_report_list,"user_reported_projects":related_project_list})                 
+@api_view(['GET'])
+def AuthorizedUserProjectList(request):
+    
+       project_report_list =[]
+       for x in range(len(ML)):
+              project_report_list =  project_report_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id),many=True).data   
         
       
        #sorted(problem_list, key=attrgetter("date"))
        all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
-       return Response(all_project_report_list)          
+       return Response(all_project_report_list)        
+@api_view(['GET'])
+def NotReportedUserProjectList(request):
+    
+       project_report_list =[]
+       for x in range(len(ML)):
+              project_report_list =  project_report_list + gb[SL[x]](gb[ML[x]].objects.filter(profile=request.user.profile.id,reported=False),many=True).data   
+        
+      
+       #sorted(problem_list, key=attrgetter("date"))
+       all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
+       return Response(all_project_report_list)           

@@ -88,7 +88,7 @@ def UserProjectCommentList1(request):
            
            if project_comment_list[x1]['profile'] not in  project_comment_profile_ids:
             project_comment_profiles =project_comment_profiles + ProfileSerializer(Profile.objects.filter(id=project_comment_list[x1]["profile"]),many=True).data
-           project_comment_profile_ids.append(project_comment_list[x1]['profile'])
+            project_comment_profile_ids.append(project_comment_list[x1]['profile'])
        for x1 in range(len(project_comment_profiles)):
            
            project_comment_profiles_dict[project_comment_profiles[x1]['id']] =  project_comment_profiles[x1]

@@ -1,3 +1,4 @@
+from level_management.models import Level
 from report_management.models import Report
 from progress_management.models import Progress
 from user_management.models import Profile
@@ -47,6 +48,7 @@ class ZoneProject(models.Model):
     desc = models.TextField(null=True)
     img=models.ImageField(null=True,upload_to='images/weredaProject',default='images/project-logo.png')
     zone = models.ForeignKey(Zone,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -57,7 +59,7 @@ class ZoneProject(models.Model):
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path) 
 class CountryProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -68,6 +70,7 @@ class CountryProject(models.Model):
     desc = models.TextField(null=True)
     img = models.ImageField(null=True,upload_to='images/countryProject',default='images/project-logo.png')
     country = models.ForeignKey(Country,on_delete=models.CASCADE,default=1)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True)  
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -90,6 +93,7 @@ class RegionProject(models.Model):
     img=models.ImageField(null=True,upload_to='images/regionProject',default='images/regionProject/regions.jpg')
     
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True)
     
     objects = models.Manager() # The default manager.
@@ -114,6 +118,7 @@ class WeredaProject(models.Model):
     desc = models.TextField(null=True)
     img=models.ImageField(upload_to='images/weredaProject',null=True,default='images/project-logo.png')
     wereda = models.ForeignKey(Wereda,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True) 
     
     def save(self,*args,**kwargs):
@@ -136,6 +141,7 @@ class CityProject(models.Model):
     desc = models.TextField(null=True) 
     img=models.ImageField(null=True,upload_to='images/cityProject',default='images/project-logo.png')
     city = models.ForeignKey(City,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -145,7 +151,7 @@ class CityProject(models.Model):
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)
 class SubCityProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -156,6 +162,7 @@ class SubCityProject(models.Model):
     desc = models.TextField(null=True) 
     img=models.ImageField(upload_to='images/subCityProject',null=True,default='images/project-logo.png')
     sub_city = models.ForeignKey(SubCity,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True) 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -176,6 +183,7 @@ class KebeleProject(models.Model):
     desc = models.TextField(null=True)
     img=models.ImageField(upload_to='images/kebeleProject',null=True,default='images/project-logo.png')
     kebele = models.ForeignKey(Kebele,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -196,6 +204,7 @@ class WeredaKebeleProject(models.Model):
     desc = models.TextField(null=True)
     img=models.ImageField(null=True,upload_to='images/weredaKebeleProject',default='images/project-logo.png')
     wereda_kebele = models.ForeignKey(WeredaKebele,on_delete=models.CASCADE,null=True)
+    reported = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True)
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -280,7 +289,9 @@ class WeredaKebeleProjectProgress(models.Model):
     
     
 class CountryProjectReport(models.Model): 
-    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True)
+    
+    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True ,related_name='project')
+    worklevel=models.IntegerField(default=9)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
@@ -288,50 +299,59 @@ class CountryProjectReport(models.Model):
     date = models.DateTimeField(auto_now=True)
      
 class RegionProjectReport(models.Model):
-    project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,null=True)
+   
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
     percentage = models.IntegerField(default=0)
+   
     date = models.DateTimeField(auto_now=True)
 class ZoneProjectReport(models.Model):
-    project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,null=True)
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
+    
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class WeredaProjectReport(models.Model):
-    project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,null=True)
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True) 
 class CityProjectReport(models.Model):
-    project = models.ForeignKey(CityProject,on_delete = models.CASCADE,null=True)
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(CityProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class SubCityProjectReport(models.Model):
-    project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,null=True)
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class KebeleProjectReport(models.Model):
-    project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,null=True)
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class WeredaKebeleProjectReport(models.Model):
-    
-    project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,null=True)
+    worklevel=models.IntegerField(default=9)
+    project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,null=True,related_name='project')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')

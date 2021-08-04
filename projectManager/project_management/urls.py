@@ -41,6 +41,9 @@ urlpatterns = [path('all', api.ProjectList),
                path('wereda/report',crudFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
                path('wereda/report/<int:pk>/', detailFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
                path('user/reports/',api.UserProjectReportList),
+               path('user/not-reported/',api.NotReportedUserProjectList),
+               path('user/authorized/',api.AuthorizedUserProjectList),
+              
               
                path('', include(router.urls))
              ]
