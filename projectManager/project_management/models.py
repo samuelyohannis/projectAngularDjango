@@ -81,7 +81,7 @@ class CountryProject(models.Model):
         img1.save(self.img.path)
 
 class RegionProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
