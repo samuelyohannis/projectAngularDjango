@@ -1,14 +1,16 @@
 from rest_framework import viewsets,permissions,generics
 from .serializers import *
+from rest_framework import status
 from rest_framework.parsers import MultiPartParser,FormParser,JSONParser
 from rest_framework.response import Response
 from .models import *
+import json
 from itertools import chain
 from operator import itemgetter, attrgetter
 from rest_framework.decorators import api_view
 from location_management.models import *
 from django.shortcuts import get_object_or_404
-
+from create_management.views import Create
 pcv1 = [permissions.IsAuthenticated,]
 pcv2 = [permissions.AllowAny,]
 prcv = [MultiPartParser,FormParser,JSONParser,]
@@ -76,6 +78,18 @@ class CountryProjectViewSet(ViewSetCommonForAll):
     queryset = CountryProject.objects.all()
     serializer_class = CountryProjectSerializer
     permission_classes= pcv2     
+    def create(self, request, *args, **kwargs):
+       serializer = CountryProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len(request.POST.getlist('countryprojectfile_set'))):
+             print(request.POST.getlist('countryprojectfile_set')[x])
+             countryproject=CountryProject.objects.get(pk=response.data["id"])
+             CountryProjectFile.objects.create(project= countryproject);
+       
+       return Response(  response.data  , status=status.HTTP_201_CREATED)   
+  
+        
 class RegionProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
@@ -193,7 +207,7 @@ def AuthorizedUserProjectList(request):
         
       
        #sorted(problem_list, key=attrgetter("date"))
-       all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
+       all_project_report_list = sorted( project_report_list, key=itemgetter("date"))
        return Response(all_project_report_list)        
 @api_view(['GET'])
 def NotReportedUserProjectList(request):
@@ -206,3 +220,4 @@ def NotReportedUserProjectList(request):
        #sorted(problem_list, key=attrgetter("date"))
        all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
        return Response(all_project_report_list)           
+   

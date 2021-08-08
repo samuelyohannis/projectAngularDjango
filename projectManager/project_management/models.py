@@ -213,45 +213,37 @@ class WeredaKebeleProject(models.Model):
         newHeight =int(img.height*newWidth/img.width)
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)           
-class CountryProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/countryProJect',null=True)
+class CountryProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/countryProJect',null=True)
-    country_project = models.ForeignKey(CountryProject,on_delete=models.CASCADE,)
+    project = models.ForeignKey(CountryProject,on_delete=models.CASCADE)
     date_modified = models.DateTimeField(auto_now=True)  
-class RegionProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/regionProJect',null=True)
+class RegionProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/regionProJect',null=True)
-    region_project= models.ForeignKey(RegionProject,on_delete=models.CASCADE,)
+    project= models.ForeignKey(RegionProject,on_delete=models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True) 
-class ZoneProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/zoneProJect',null=True)
+class ZoneProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/zoneProJect',null=True)
-    zone_project = models.ForeignKey(ZoneProject,on_delete=models.CASCADE)
+    project = models.ForeignKey(ZoneProject,on_delete=models.CASCADE)
     date_modified = models.DateTimeField(auto_now=True)  
-class WeredaProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/weredaProJect',null=True)
+class WeredaProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/weredaProJect',null=True)
-    wereda_project = models.ForeignKey(WeredaProject,on_delete=models.CASCADE,)
+    project = models.ForeignKey(WeredaProject,on_delete=models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True) 
-class CityProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/cityProJect',null=True)
+class CityProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/cityProJect',null=True)
-    city_project = models.ForeignKey(CityProject,on_delete=models.CASCADE,)
+    project = models.ForeignKey(CityProject,on_delete=models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)  
-class SubCityProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/cityProJect',null=True)
-    file = models.FileField(upload_to = 'files/cityProJect',null=True)
-    sub_city_project = models.ForeignKey(SubCityProject,on_delete=models.CASCADE,)
+class SubCityProjectFile(models.Model):
+    file = models.FileField(upload_to = 'files/subCityProJect',null=True)
+    project = models.ForeignKey(SubCityProject,on_delete=models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)    
-class KebeleProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/kebeleProJect',null=True)
+class KebeleProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/kebeleProJect',null=True)
-    kebele_project = models.ForeignKey(KebeleProject,on_delete=models.CASCADE,)
+    project = models.ForeignKey(KebeleProject,on_delete=models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True)    
-class WeredaKebeleProjectFiles(models.Model):
-    img = models.ImageField(upload_to = 'images/kebeleProJect',null=True)
-    file = models.FileField(upload_to = 'files/kebeleProJect',null=True)
-    wereda_kebele_project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
+class WeredaKebeleProjectFile(models.Model):
+    file = models.FileField(upload_to = 'files/weredaKebeleProJect',null=True)
+    project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,)
     date_modified = models.DateTimeField(auto_now=True) 
     
 class CountryProjectProgress(models.Model): 
@@ -290,7 +282,7 @@ class WeredaKebeleProjectProgress(models.Model):
     
 class CountryProjectReport(models.Model): 
     
-    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True ,related_name='project')
+    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True )
     worklevel=models.IntegerField(default=9)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)

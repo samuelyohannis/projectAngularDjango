@@ -27,7 +27,7 @@ class Create(APIView):
         cls.Serializer  = Serializer
         cls.Model  = Model
         return super(Create,cls).as_view(**kwargs)
-      
+    
        
     def post(self, request, format=None,**kwargs):
         serializer = self.Serializer(data=request.data)
@@ -35,3 +35,38 @@ class Create(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+ 
+class Mutiple(Create):
+  @classmethod
+  def as_view(self, Serializer,Model,**kwargs):
+        self.Serializer  = Serializer
+        self.Model  = Model
+        
+        return super(Mutiple,self).as_view(**kwargs)
+  def get_object(self, pk):
+        try:
+            return self.Model.objects.get(pk=pk)
+        except self.Model.DoesNotExist:
+            raise Http404  
+  def post(self, request, *args, **kwargs):
+   
+    serializer = self.Serializer(data=request.data)
+    
+    
+            
+    ''' if serializer.is_valid(raise_exception=True):
+              files = request.FILES.getlist('files')
+              object = self.get_object(request.POST['related_key_value'])
+              for f in files:
+                related_object = self.Model(file=f)  
+                object[request.POST['related_key']].add(related_object)
+                serializer = self.Serializer(data={request.data})
+                serializer.save()
+                self.Model.objects.create(f)
+    return Response({
+     self.Model.objects.create(file)
+    })    '''
+    
+ 

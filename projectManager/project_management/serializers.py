@@ -35,10 +35,7 @@ class WeredaKebeleProjectSerializer(serializers.ModelSerializer):
   class Meta:
     model =  WeredaKebeleProject 
     fields = '__all__'     
-class CountryProjectSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = CountryProject
-    fields = '__all__'   
+
 class WeredaKebeleProjectReportSerializer(serializers.ModelSerializer):
   class Meta:
     model = WeredaKebeleProjectReport
@@ -73,13 +70,37 @@ class RegionProjectReportSerializer(serializers.ModelSerializer):
 class CountryProjectReportSerializer(serializers.ModelSerializer):
   class Meta:
     model = CountryProjectReport
-    fields = '__all__'                 
+    fields = '__all__'
+class CountryProjectFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = CountryProjectFile
+    fields = '__all__'    
+                         
 class CommonSerializer(serializers.ModelSerializer):
      
   class Meta:
     model = object()
     fields = '__all__'   
+""" class CountryProjectSerializer(serializers.ModelSerializer):
+  
+  class Meta:
+    model = CountryProject
+    fields = '__all__'    """
+class CountryProjectSerializer(serializers.ModelSerializer):
+  #countryprojectreports = CountryProjectReportSerializer(source='countryprojectreport_set', many=True,)
+  """def create(self, validated_data):
+        instance = CountryProject.objects.create(**validated_data) """
 
+        #return instance
+  def to_representation(self, instance):
+        representation = super(CountryProjectSerializer, self).to_representation(instance)
+        representation['countryprojectreport'] = CountryProjectReportSerializer(instance.countryprojectreport_set.all(), many=True).data
+        representation['countryprojectfile'] = CountryProjectFileSerializer(instance.countryprojectfile_set.all(), many=True).data
+        return representation    
+  class Meta:
+    model = CountryProject
+    fields = '__all__'    
+    
 Meta= object()        
 def DynamicSerializerClass(*args):
   global Meta
