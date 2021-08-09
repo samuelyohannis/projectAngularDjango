@@ -82,12 +82,11 @@ class CountryProjectViewSet(ViewSetCommonForAll):
        serializer = CountryProjectSerializer(data=request.data,)
        serializer.is_valid(raise_exception=True)
        response = super().create(request, *args, **kwargs)
-       for x in range(len(request.POST.getlist('countryprojectfile_set'))):
-             print(request.POST.getlist('countryprojectfile_set')[x])
-             countryproject=CountryProject.objects.get(pk=response.data["id"])
-             CountryProjectFile.objects.create(project= countryproject);
-       
-       return Response(  response.data  , status=status.HTTP_201_CREATED)   
+       for x in range(len((request.FILES.getlist('files')))):
+            countryproject=CountryProject.objects.get(pk=response.data["id"])
+            CountryProjectFile.objects.create(project= countryproject,file=(request.FILES.getlist('files')[x]));
+       response = CountryProject.objects.get(pk=response.data["id"])
+       return Response(CountryProjectSerializer(response).data  , status=status.HTTP_201_CREATED)   
   
         
 class RegionProjectViewSet(ViewSetCommonForAll):
