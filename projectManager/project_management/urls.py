@@ -1,3 +1,4 @@
+from create_management.views import createWithRelatedFileFactory
 from list_management.views import listFactory
 from .models import *
 from .serializers import *
@@ -43,7 +44,8 @@ urlpatterns = [path('all', api.ProjectList),
                path('user/reports/',api.UserProjectReportList),
                path('user/not-reported/',api.NotReportedUserProjectList),
                path('user/authorized/',api.AuthorizedUserProjectList),
-              
+               path('rek',createWithRelatedFileFactory().as_view(CountryProjectSerializer,CountryProjectFileSerializer,CountryProject,CountryProjectFile,'countryprojectfile')),
+             
               
                path('', include(router.urls))
              ]

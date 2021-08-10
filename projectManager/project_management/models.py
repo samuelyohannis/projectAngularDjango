@@ -215,7 +215,7 @@ class WeredaKebeleProject(models.Model):
         img1.save(self.img.path)           
 class CountryProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/countryProJect',null=True)
-    project = models.ForeignKey(CountryProject,on_delete=models.CASCADE)
+    project = models.ForeignKey(CountryProject,on_delete=models.CASCADE,null=True)
     date_modified = models.DateTimeField(auto_now=True)  
 class RegionProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/regionProJect',null=True)

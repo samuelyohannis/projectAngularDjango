@@ -79,12 +79,14 @@ class CountryProjectViewSet(ViewSetCommonForAll):
     serializer_class = CountryProjectSerializer
     permission_classes= pcv2     
     def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "countryprojectfile"
        serializer = CountryProjectSerializer(data=request.data,)
        serializer.is_valid(raise_exception=True)
        response = super().create(request, *args, **kwargs)
        for x in range(len((request.FILES.getlist('files')))):
             countryproject=CountryProject.objects.get(pk=response.data["id"])
-            CountryProjectFile.objects.create(project= countryproject,file=(request.FILES.getlist('files')[x]));
+            rel=CountryProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(countryproject,f"{self.relatedKeyName}_set").add(rel)
        response = CountryProject.objects.get(pk=response.data["id"])
        return Response(CountryProjectSerializer(response).data  , status=status.HTTP_201_CREATED)   
   

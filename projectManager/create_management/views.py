@@ -38,35 +38,68 @@ class Create(APIView):
     
     
  
-class Mutiple(Create):
+class CreateWithRelatedFile(APIView):
   @classmethod
-  def as_view(self, Serializer,Model,**kwargs):
+  def as_view(self,Serializer,RelatedSerializer,Model,RelatedModel,RelatedName,**kwargs):
         self.Serializer  = Serializer
         self.Model  = Model
+        self.RelatedModel = RelatedModel
+        self.relatedKeyName = RelatedName
+        self.RelatedSerializer  = RelatedSerializer
         
-        return super(Mutiple,self).as_view(**kwargs)
+        return super(CreateWithRelatedFile,self).as_view(**kwargs)
   def get_object(self, pk):
         try:
             return self.Model.objects.get(pk=pk)
         except self.Model.DoesNotExist:
             raise Http404  
   def post(self, request, *args, **kwargs):
-   
-    serializer = self.Serializer(data=request.data)
+       response = {}
+       serializer = self.Serializer(data=request.data)
+     
+       if serializer.is_valid():
+           response = serializer.save()
+           print(response)
+           for x in range(len((request.FILES.getlist(f"{self.relatedKeyName}s")))):
+            object = self.Model.objects.get(pk=response.id)
+            related_object = self.RelatedModel.objects.create(file=(request.FILES.getlist(f"{self.relatedKeyName}s")[x]));
+            getattr(object,f"{self.relatedKeyName}_set").add(related_object)
+       response = self.Model.objects.get(pk=response.id)
+       return Response(self.Serializer(response).data  , status=status.HTTP_201_CREATED)   
     
     
-            
-    ''' if serializer.is_valid(raise_exception=True):
-              files = request.FILES.getlist('files')
-              object = self.get_object(request.POST['related_key_value'])
-              for f in files:
-                related_object = self.Model(file=f)  
-                object[request.POST['related_key']].add(related_object)
-                serializer = self.Serializer(data={request.data})
-                serializer.save()
-                self.Model.objects.create(f)
-    return Response({
-     self.Model.objects.create(file)
-    })    '''
+class MultipleFileUpload(APIView):
+  @classmethod
+  def as_view(self,FileSerializer,FileModel,**kwargs):
+        self.FileSerializer  = FileSerializer
+        self.FileModel  = FileModel
+        return super(MultipleFileUpload,self).as_view(**kwargs)
+  def get_object(self, pk):
+        try:
+            return self.FileModel.objects.get(pk=pk)
+        except self.FileModel.DoesNotExist:
+            raise Http404  
+  def post(self, request, *args, **kwargs):
+       response = {}
+       serializer = self.FileSerializer(data=request.data)
+     
+       if serializer.is_valid():
+            for x in range(len((request.FILES.getlist("files")))):
+               
+             response= response + self.FileSerializer.create(file=(request.FILES.getlist("files")[x]))
+        
+       return Response(response  , status=status.HTTP_201_CREATED)   
+    
+    
+  
+  
+def multipleFileUploadFactory():
+       
+     return  type('',   (MultipleFileUpload,), dict())  
+  
+def createWithRelatedFileFactory():
+       
+     return  type('',   (CreateWithRelatedFile,), dict())                
+
     
  
