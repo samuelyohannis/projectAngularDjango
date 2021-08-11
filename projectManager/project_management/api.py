@@ -98,7 +98,18 @@ class RegionProjectViewSet(ViewSetCommonForAll):
     queryset = RegionProject.objects.all()
     serializer_class = RegionProjectSerializer
     permission_classes= pcv2 
-    
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "regionprojectfile"
+       serializer = RegionProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            regionProject=RegionProject.objects.get(pk=response.data["id"])
+            rel=RegionProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(regionProject,f"{self.relatedKeyName}_set").add(rel)
+       response = RegionProject.objects.get(pk=response.data["id"])
+       return Response(RegionProjectSerializer(response).data  , status=status.HTTP_201_CREATED)   
+  
 class ZoneProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
