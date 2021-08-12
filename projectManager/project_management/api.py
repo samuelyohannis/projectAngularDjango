@@ -112,12 +112,23 @@ class RegionProjectViewSet(ViewSetCommonForAll):
   
 class ZoneProjectViewSet(ViewSetCommonForAll):
     """
+    region
     API endpoint that allows users to be viewed or edited.
     """
     queryset = ZoneProject.objects.all()
     serializer_class = ZoneProjectSerializer
     permission_classes= pcv2 
-    
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "zoneprojectfile"
+       serializer = ZoneProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            zoneProject=ZoneProject.objects.get(pk=response.data["id"])
+            rel=ZoneProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(zoneProject,f"{self.relatedKeyName}_set").add(rel)
+       response = ZoneProject.objects.get(pk=response.data["id"])
+       return Response(ZoneProjectSerializer(response).data  , status=status.HTTP_201_CREATED) 
 class WeredaProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
@@ -125,7 +136,17 @@ class WeredaProjectViewSet(ViewSetCommonForAll):
     queryset = WeredaProject.objects.all()
     serializer_class = WeredaProjectSerializer
     permission_classes= pcv2 
-    
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "weredaprojectfile"
+       serializer = WeredaProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            weredaProject=WeredaProject.objects.get(pk=response.data["id"])
+            rel=WeredaProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(weredaProject,f"{self.relatedKeyName}_set").add(rel)
+       response = WeredaProject.objects.get(pk=response.data["id"])
+       return Response(WeredaProjectSerializer(response).data  , status=status.HTTP_201_CREATED)
 class CityProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
@@ -133,13 +154,67 @@ class CityProjectViewSet(ViewSetCommonForAll):
     queryset = CityProject.objects.all()
     serializer_class = CityProjectSerializer
     permission_classes= pcv2 
-    
-    
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "cityprojectfile"
+       serializer = CityProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            cityProject=CityProject.objects.get(pk=response.data["id"])
+            rel=CityProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(cityProject,f"{self.relatedKeyName}_set").add(rel)
+       response = CityProject.objects.get(pk=response.data["id"])
+       return Response(CityProjectSerializer(response).data  , status=status.HTTP_201_CREATED)
+class SubCityProjectViewSet(ViewSetCommonForAll):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = SubCityProject.objects.all()
+    serializer_class = SubCityProjectSerializer
+    permission_classes= pcv2 
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "subCityprojectfile"
+       serializer = SubCityProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            subCityProject=SubCityProject.objects.get(pk=response.data["id"])
+            rel=SubCityProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(subCityProject,f"{self.relatedKeyName}_set").add(rel)
+       response = SubCityProject.objects.get(pk=response.data["id"])
+       return Response(SubCityProjectSerializer(response).data  , status=status.HTTP_201_CREATED)    
 class KebeleProjectViewSet(ViewSetCommonForAll):
 
     queryset = KebeleProject.objects.all()
     serializer_class = KebeleProjectSerializer
-    permission_classes= pcv2                
+    permission_classes= pcv2  
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "kebeleprojectfile"
+       serializer = KebeleProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            kebeleProject=KebeleProject.objects.get(pk=response.data["id"])
+            rel=KebeleProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(kebeleProject,f"{self.relatedKeyName}_set").add(rel)
+       response = KebeleProject.objects.get(pk=response.data["id"])
+       return Response(KebeleProjectSerializer(response).data  , status=status.HTTP_201_CREATED) 
+class WeredaKebeleProjectViewSet(ViewSetCommonForAll):
+    
+    queryset = WeredaKebeleProject.objects.all()
+    serializer_class = WeredaKebeleProjectSerializer
+    permission_classes= pcv2  
+    def create(self, request, *args, **kwargs):
+       self.relatedKeyName= "weredaKebeleprojectfile"
+       serializer = WeredaKebeleProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            weredaKebeleProject=WeredaKebeleProject.objects.get(pk=response.data["id"])
+            rel=WeredaKebeleProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(weredaKebeleProject,f"{self.relatedKeyName}_set").add(rel)
+       response = WeredaKebeleProject.objects.get(pk=response.data["id"])
+       return Response(WeredaKebeleProjectSerializer(response).data  , status=status.HTTP_201_CREATED)                   
 class UserRegionProject(ViewSetCommonForAll):
     queryset = RegionProject.objects.all()
     serializer_class = RegionProjectSerializer 
