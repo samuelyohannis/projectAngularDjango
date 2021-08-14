@@ -406,4 +406,34 @@ def NotReportedUserProjectList(request):
        #sorted(problem_list, key=attrgetter("date"))
        all_project_report_list = sorted( project_report_list, key=itemgetter("id"))
        return Response(all_project_report_list)           
-   
+class DynamicViewSetWithRelatedData(ViewSetCommonForAll):
+    permission_classes= pcv2 
+    relatedKeyName = '' 
+    def create(self, request, *args, **kwargs):
+       serializer = self.serializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().create(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            weredaKebeleProject=self.model.objects.get(pk=response.data["id"])
+            rel=self.related_model.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(weredaKebeleProject,f"{self.relatedKeyName}_set").add(rel)
+       response =self.model.objects.get(pk=response.data["id"])
+       return Response(self.serializer(response).data  , status=status.HTTP_201_CREATED) 
+    
+    def update(self, request, *args, **kwargs): 
+       serializer =self.serializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            weredaKebeleProject=self.model.objects.get(pk=response.data["id"])
+            rel=self.related_model.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(weredaKebeleProject,f"{self.relatedKeyName}_set").add(rel)
+       response = self.model.objects.get(pk=response.data["id"])
+       return Response(self.serializer(response).data  , status=status.HTTP_200_OK)   
+def dynamicViewSetWithRelatedDataFactory(*args):
+       
+     return  type('',   (DynamicViewSetWithRelatedData,), dict(serializer =args[0],serializer_class =args[0],related_serializer=args[1],model=args[2],queryset=args[2].objects.all(),related_model=args[3],relatedKeyName=args[4]))
+
+""" def DynamicViewSetClass(*args):
+     
+  return type(args[0], (ViewSetCommonForAll,), dict(queryset=args[1],serializer_class =args[2])) """

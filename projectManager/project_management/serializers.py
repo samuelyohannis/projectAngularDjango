@@ -11,38 +11,7 @@ class ProjectSerializer(serializers.ModelSerializer):
   
   
 
-class WeredaKebeleProjectReportSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = WeredaKebeleProjectReport
-    fields = '__all__'       
 
-class KebeleProjectReportSerializer(serializers.ModelSerializer):
-   class Meta:
-    model = KebeleProjectReport
-    fields = '__all__'       
-class WeredaProjectReportSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = WeredaProjectReport
-    fields = '__all__'   
-    
-class SubCityProjectReportSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = SubCityProjectReport
-    fields = '__all__'   
-    
-class ZoneProjectReportSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = ZoneProjectReport
-    fields = '__all__'    
-   
-class RegionProjectReportSerializer(serializers.ModelSerializer):
-   class Meta:
-    model = RegionProjectReport
-    fields = '__all__'                
-class CountryProjectReportSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = CountryProjectReport
-    fields = '__all__'
 class CountryProjectFileSerializer(serializers.ModelSerializer):
   class Meta:
     model = CountryProjectFile
@@ -176,10 +145,83 @@ class WeredaKebeleProjectSerializer(serializers.ModelSerializer):
         representation['weredakebeleprojectreport'] = WeredaKebeleProjectReportSerializer(instance.weredakebeleprojectreport_set.all(), many=True).data
         representation['weredakebeleprojectfile'] = WeredaKebeleProjectFileSerializer(instance.weredakebeleprojectfile_set.all(), many=True).data
         return representation     
+      
+      
+      
+      
+      
+      
+class CountryProjectReportFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  CountryProjectReportFile 
+    fields = '__all__'       
+class RegionProjectReportFileSerializer(serializers.ModelSerializer):
+   class Meta:
+    model =  RegionProjectReportFile 
+    fields = '__all__'   
+class ZoneProjectReportFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  ZoneProjectReportFile 
+    fields = '__all__'  
+class WeredaProjectReportFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  WeredaProjectReportFile 
+    fields = '__all__'          
 class CityProjectReportFileSerializer(serializers.ModelSerializer):
   class Meta:
     model =  CityProjectReportFile 
     fields = '__all__'     
+class SubCityProjectReportFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  SubCityProjectReportFile 
+    fields = '__all__' 
+class KebeleProjectReportFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  KebeleProjectReportFile 
+    fields = '__all__'    
+class WeredaKebeleProjectReportFileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  WeredaKebeleProjectReportFile 
+    fields = '__all__'      
+    
+    
+    
+    
+          
+class CountryProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = CountryProjectReport
+    fields = '__all__'   
+    
+  def to_representation(self, instance):
+        representation = super(CountryProjectReportSerializer, self).to_representation(instance)
+        representation['countryprojectreportfile'] = CountryProjectReportFileSerializer(instance.countryprojectreportfile_set.all(), many=True).data
+        return representation      
+class RegionProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = RegionProjectReport
+    fields = '__all__' 
+  def to_representation(self, instance):
+        representation = super(RegionProjectReportSerializer, self).to_representation(instance)
+        representation['regionprojectreportfile'] = RegionProjectReportFileSerializer(instance.regionprojectreportfile_set.all(), many=True).data
+        return representation     
+class ZoneProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = ZoneProjectReport
+    fields = '__all__'   
+    
+  def to_representation(self, instance):
+        representation = super(ZoneProjectReportSerializer, self).to_representation(instance)
+        representation['zoneprojectreportfile'] = ZoneProjectReportFileSerializer(instance.zoneprojectreportfile_set.all(), many=True).data
+        return representation          
+class WeredaProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = WeredaProjectReport
+    fields = '__all__'   
+  def to_representation(self, instance):
+        representation = super(WeredaProjectReportSerializer, self).to_representation(instance)
+        representation['weredaprojectreportfile'] = WeredaProjectReportFileSerializer(instance.weredaprojectreportfile_set.all(), many=True).data
+        return representation       
 class CityProjectReportSerializer(serializers.ModelSerializer):
   class Meta:
     model = CityProjectReport
@@ -188,8 +230,33 @@ class CityProjectReportSerializer(serializers.ModelSerializer):
   def to_representation(self, instance):
         representation = super(CityProjectReportSerializer, self).to_representation(instance)
         representation['cityprojectreportfile'] = CityProjectReportFileSerializer(instance.cityprojectreportfile_set.all(), many=True).data
-        return representation         
-                   
+        return representation  
+      
+class SubCityProjectReportSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = SubCityProjectReport
+    fields = '__all__'   
+  def to_representation(self, instance):
+        representation = super(SubCityProjectReportSerializer, self).to_representation(instance)
+        representation['subsityprojectreportfile'] = SubCityProjectReportFileSerializer(instance.subcityprojectreportfile_set.all(), many=True).data
+        return representation    
+class WeredaKebeleProjectReportSerializer(serializers.ModelSerializer):
+   class Meta:
+    model = WeredaKebeleProjectReport
+    fields = '__all__'       
+   def to_representation(self, instance):
+        representation = super(WeredaKebeleProjectReportSerializer, self).to_representation(instance)
+        representation['weredakebeleprojectreportfile'] = WeredaKebeleProjectReportFileSerializer(instance.weredakebeleprojectreportfile_set.all(), many=True).data
+        return representation  
+class KebeleProjectReportSerializer(serializers.ModelSerializer):
+   class Meta:
+    model = KebeleProjectReport
+    fields = '__all__'  
+    
+   def to_representation(self, instance):
+        representation = super(KebeleProjectReportSerializer, self).to_representation(instance)
+        representation['kebeleprojectreportfile'] = KebeleProjectReportFileSerializer(instance.kebeleprojectreportfile_set.all(), many=True).data
+        return representation                                            
 Meta= object()        
 def DynamicSerializerClass(*args):
   global Meta

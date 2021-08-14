@@ -385,7 +385,4 @@ class WeredaKebeleProjectReportFile(models.Model):
     date_modified = models.DateTimeField(auto_now=True)   
     
     
-class CountryProjectReportFile(models.Model):
-    file = models.FileField(upload_to = 'files/countryProJect/report/',null=True)
-    report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
-    date_modified = models.DateTimeField(auto_now=True)                              
+                          
