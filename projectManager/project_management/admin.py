@@ -10,4 +10,6 @@ admin.site.register(CountryProject)
 admin.site.register(CountryProjectReport)
 admin.site.register(WeredaKebeleProjectReport)
 admin.site.register(WeredaKebeleProject)
+admin.site.register(CityProjectReport)
+
 admin.site.register(ZoneProjectReport)

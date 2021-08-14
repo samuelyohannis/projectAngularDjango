@@ -89,7 +89,18 @@ class CountryProjectViewSet(ViewSetCommonForAll):
             getattr(countryproject,f"{self.relatedKeyName}_set").add(rel)
        response = CountryProject.objects.get(pk=response.data["id"])
        return Response(CountryProjectSerializer(response).data  , status=status.HTTP_201_CREATED)   
-  
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "countryprojectfile"
+       serializer = CountryProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            countryProject=CountryProject.objects.get(pk=response.data["id"])
+            rel=CountryProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(countryProject,f"{self.relatedKeyName}_set").add(rel)
+       response = CountryProject.objects.get(pk=response.data["id"])
+       return Response(CountryProjectSerializer(response).data  , status=status.HTTP_200_OK)
         
 class RegionProjectViewSet(ViewSetCommonForAll):
     """
@@ -109,6 +120,18 @@ class RegionProjectViewSet(ViewSetCommonForAll):
             getattr(regionProject,f"{self.relatedKeyName}_set").add(rel)
        response = RegionProject.objects.get(pk=response.data["id"])
        return Response(RegionProjectSerializer(response).data  , status=status.HTTP_201_CREATED)   
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "regionprojectfile"
+       serializer = RegionProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            regionProject=RegionProject.objects.get(pk=response.data["id"])
+            rel=RegionProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(regionProject,f"{self.relatedKeyName}_set").add(rel)
+       response = RegionProject.objects.get(pk=response.data["id"])
+       return Response(RegionProjectSerializer(response).data  , status=status.HTTP_200_OK)     
   
 class ZoneProjectViewSet(ViewSetCommonForAll):
     """
@@ -128,7 +151,19 @@ class ZoneProjectViewSet(ViewSetCommonForAll):
             rel=ZoneProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
             getattr(zoneProject,f"{self.relatedKeyName}_set").add(rel)
        response = ZoneProject.objects.get(pk=response.data["id"])
-       return Response(ZoneProjectSerializer(response).data  , status=status.HTTP_201_CREATED) 
+       return Response(ZoneProjectSerializer(response).data  , status=status.HTTP_200_OK) 
+    def update(self, request, *args, **kwargs):
+     
+       self.relatedKeyName= "zoneprojectfile"
+       serializer = ZoneProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            zoneProject=ZoneProject.objects.get(pk=response.data["id"])
+            rel=ZoneProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(zoneProject,f"{self.relatedKeyName}_set").add(rel)
+       response = ZoneProject.objects.get(pk=response.data["id"])
+       return Response(ZoneProjectSerializer(response).data  , status=status.HTTP_200_OK) 
 class WeredaProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
@@ -147,6 +182,19 @@ class WeredaProjectViewSet(ViewSetCommonForAll):
             getattr(weredaProject,f"{self.relatedKeyName}_set").add(rel)
        response = WeredaProject.objects.get(pk=response.data["id"])
        return Response(WeredaProjectSerializer(response).data  , status=status.HTTP_201_CREATED)
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "weredaprojectfile"
+       serializer = WeredaProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            weredaProject=WeredaProject.objects.get(pk=response.data["id"])
+            rel=WeredaProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(weredaProject,f"{self.relatedKeyName}_set").add(rel)
+       response = WeredaProject.objects.get(pk=response.data["id"])
+       return Response(WeredaProjectSerializer(response).data  , status=status.HTTP_200_OK) 
+   
 class CityProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
@@ -165,6 +213,19 @@ class CityProjectViewSet(ViewSetCommonForAll):
             getattr(cityProject,f"{self.relatedKeyName}_set").add(rel)
        response = CityProject.objects.get(pk=response.data["id"])
        return Response(CityProjectSerializer(response).data  , status=status.HTTP_201_CREATED)
+   
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "cityprojectfile"
+       serializer = CityProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            cityProject=CityProject.objects.get(pk=response.data["id"])
+            rel=CityProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(cityProject,f"{self.relatedKeyName}_set").add(rel)
+       response = CityProject.objects.get(pk=response.data["id"])
+       return Response(CityProjectSerializer(response).data  , status=status.HTTP_200_OK) 
 class SubCityProjectViewSet(ViewSetCommonForAll):
     """
     API endpoint that allows users to be viewed or edited.
@@ -173,7 +234,7 @@ class SubCityProjectViewSet(ViewSetCommonForAll):
     serializer_class = SubCityProjectSerializer
     permission_classes= pcv2 
     def create(self, request, *args, **kwargs):
-       self.relatedKeyName= "subCityprojectfile"
+       self.relatedKeyName= "subcityprojectfile"
        serializer = SubCityProjectSerializer(data=request.data,)
        serializer.is_valid(raise_exception=True)
        response = super().create(request, *args, **kwargs)
@@ -182,7 +243,20 @@ class SubCityProjectViewSet(ViewSetCommonForAll):
             rel=SubCityProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
             getattr(subCityProject,f"{self.relatedKeyName}_set").add(rel)
        response = SubCityProject.objects.get(pk=response.data["id"])
-       return Response(SubCityProjectSerializer(response).data  , status=status.HTTP_201_CREATED)    
+       return Response(SubCityProjectSerializer(response).data  , status=status.HTTP_201_CREATED)  
+   
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "subcityprojectfile"
+       serializer = SubCityProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            subCityProject=SubCityProject.objects.get(pk=response.data["id"])
+            rel=SubCityProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(SubCityProject,f"{self.relatedKeyName}_set").add(rel)
+       response = subCityProject.objects.get(pk=response.data["id"])
+       return Response(SubCityProjectSerializer(response).data  , status=status.HTTP_200_OK)   
 class KebeleProjectViewSet(ViewSetCommonForAll):
 
     queryset = KebeleProject.objects.all()
@@ -199,6 +273,19 @@ class KebeleProjectViewSet(ViewSetCommonForAll):
             getattr(kebeleProject,f"{self.relatedKeyName}_set").add(rel)
        response = KebeleProject.objects.get(pk=response.data["id"])
        return Response(KebeleProjectSerializer(response).data  , status=status.HTTP_201_CREATED) 
+   
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "kebeleprojectfile"
+       serializer = KebeleProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            kebeleProject=KebeleProject.objects.get(pk=response.data["id"])
+            rel=KebeleProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(kebeleProject,f"{self.relatedKeyName}_set").add(rel)
+       response = KebeleProject.objects.get(pk=response.data["id"])
+       return Response(KebeleProjectSerializer(response).data  , status=status.HTTP_200_OK) 
 class WeredaKebeleProjectViewSet(ViewSetCommonForAll):
     
     queryset = WeredaKebeleProject.objects.all()
@@ -214,7 +301,19 @@ class WeredaKebeleProjectViewSet(ViewSetCommonForAll):
             rel=WeredaKebeleProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
             getattr(weredaKebeleProject,f"{self.relatedKeyName}_set").add(rel)
        response = WeredaKebeleProject.objects.get(pk=response.data["id"])
-       return Response(WeredaKebeleProjectSerializer(response).data  , status=status.HTTP_201_CREATED)                   
+       return Response(WeredaKebeleProjectSerializer(response).data  , status=status.HTTP_201_CREATED) 
+    def update(self, request, *args, **kwargs):
+         
+       self.relatedKeyName= "weredakebeleprojectfile"
+       serializer = WeredaKebeleProjectSerializer(data=request.data,)
+       serializer.is_valid(raise_exception=True)
+       response = super().update(request, *args, **kwargs)
+       for x in range(len((request.FILES.getlist('files')))):
+            weredaKebeleProject=WeredaKebeleProject.objects.get(pk=response.data["id"])
+            rel=WeredaKebeleProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
+            getattr(weredaKebeleProject,f"{self.relatedKeyName}_set").add(rel)
+       response = WeredaKebeleProject.objects.get(pk=response.data["id"])
+       return Response(WeredaKebeleProjectSerializer(response).data  , status=status.HTTP_200_OK)                   
 class UserRegionProject(ViewSetCommonForAll):
     queryset = RegionProject.objects.all()
     serializer_class = RegionProjectSerializer 

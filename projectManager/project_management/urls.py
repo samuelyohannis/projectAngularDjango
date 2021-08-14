@@ -1,3 +1,4 @@
+from crud_management.views import crudWithRelatedFileFactory
 from create_management.views import createWithRelatedFileFactory
 from list_management.views import listFactory
 from .models import *
@@ -22,6 +23,7 @@ router.register(r'user-zone-project', api.UserZoneProject)
 router.register(r'user-wereda-project', api.UserWeredaProject)
 router.register(r'user-city-project', api.UserCityProject)
 router.register(r'user-kebele-project', api.UserKebeleProject)
+
 #router.register(r'all', api.ProjectList)
 
 
@@ -39,8 +41,11 @@ urlpatterns = [path('all', api.ProjectList),
                path('region/report/<int:pk>/', detailFactory().as_view(RegionProjectReportSerializer,RegionProjectReport)),
                path('zone/report',crudFactory().as_view(ZoneProjectReportSerializer,ZoneProjectReport)),
                path('zone/report/<int:pk>/', detailFactory().as_view(ZoneProjectReportSerializer,ZoneProjectReport)),
-               path('wereda/report',crudFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
+               path('wereda/report/',crudFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
                path('wereda/report/<int:pk>/', detailFactory().as_view(WeredaProjectReportSerializer,WeredaProjectReport)),
+               path('city-project/report/',crudWithRelatedFileFactory().as_view(CityProjectReportSerializer,CityProjectReportFileSerializer,CityProjectReport,CityProjectReportFile,'cityprojectreportfile')),
+               path('city-project/report/<int:pk>/', detailFactory().as_view(CityProjectReportSerializer,WeredaProjectReport)),
+              
                path('user/reports/',api.UserProjectReportList),
                path('user/not-reported/',api.NotReportedUserProjectList),
                path('user/authorized/',api.AuthorizedUserProjectList),

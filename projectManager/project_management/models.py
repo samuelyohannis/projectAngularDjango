@@ -18,7 +18,7 @@ class ProjectCategory(models.Model):
     name = models.CharField(max_length=1000)
     date = models.DateTimeField(auto_now=True)
 class Project(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.ForeignKey(ProjectCategory,on_delete=models.SET_NULL,null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -37,7 +37,7 @@ class Project(models.Model):
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)    
 class ZoneProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -107,7 +107,7 @@ class RegionProject(models.Model):
         img1.save(self.img.path)
        
 class WeredaProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -130,7 +130,7 @@ class WeredaProject(models.Model):
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path) 
 class CityProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -172,7 +172,7 @@ class SubCityProject(models.Model):
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)                         
 class KebeleProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -193,7 +193,7 @@ class KebeleProject(models.Model):
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)
 class WeredaKebeleProject(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,null=True)
     catagory =  models.IntegerField(null=True)
     completion = models.IntegerField(default=0)
     bujdet = models.IntegerField(default=0)
@@ -245,6 +245,7 @@ class WeredaKebeleProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/weredaKebeleProJect',null=True)
     project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,null=True )
     date_modified = models.DateTimeField(auto_now=True) 
+ 
     
 class CountryProjectProgress(models.Model): 
     progress = models.OneToOneField(Progress,on_delete = models.CASCADE,null=True)
@@ -349,3 +350,42 @@ class WeredaKebeleProjectReport(models.Model):
     desc =models.TextField(default='report')
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)          
+class CityProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/cityProJect/report/',null=True)
+    report = models.ForeignKey(CityProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)        
+class CountryProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/countryProJect/report/',null=True)
+    report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)       
+class RegionProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/regionProJect/report/',null=True)
+    report = models.ForeignKey(RegionProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)   
+    
+class ZoneProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/zoneProJect/report/',null=True)
+    report = models.ForeignKey(ZoneProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)   
+class WeredaProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/weredaProJect/report/',null=True)
+    report = models.ForeignKey(WeredaProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)
+class SubCityProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/subCityProJect/report/',null=True)
+    report = models.ForeignKey(SubCityProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)   
+class KebeleProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/kebeleProJect/report/',null=True)
+    report = models.ForeignKey(KebeleProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)   
+class WeredaKebeleProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/weredaKebeleProJect/report/',null=True)
+    report = models.ForeignKey(WeredaKebeleProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)   
+    
+    
+class CountryProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/countryProJect/report/',null=True)
+    report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)                              
