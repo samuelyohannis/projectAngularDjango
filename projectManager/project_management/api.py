@@ -254,8 +254,8 @@ class SubCityProjectViewSet(ViewSetCommonForAll):
        for x in range(len((request.FILES.getlist('files')))):
             subCityProject=SubCityProject.objects.get(pk=response.data["id"])
             rel=SubCityProjectFile.objects.create(file=(request.FILES.getlist('files')[x]));
-            getattr(SubCityProject,f"{self.relatedKeyName}_set").add(rel)
-       response = subCityProject.objects.get(pk=response.data["id"])
+            getattr(subCityProject,f"{self.relatedKeyName}_set").add(rel)
+       response = SubCityProject.objects.get(pk=response.data["id"])
        return Response(SubCityProjectSerializer(response).data  , status=status.HTTP_200_OK)   
 class KebeleProjectViewSet(ViewSetCommonForAll):
 
@@ -292,7 +292,7 @@ class WeredaKebeleProjectViewSet(ViewSetCommonForAll):
     serializer_class = WeredaKebeleProjectSerializer
     permission_classes= pcv2  
     def create(self, request, *args, **kwargs):
-       self.relatedKeyName= "weredaKebeleprojectfile"
+       self.relatedKeyName= "weredakebeleprojectfile"
        serializer = WeredaKebeleProjectSerializer(data=request.data,)
        serializer.is_valid(raise_exception=True)
        response = super().create(request, *args, **kwargs)
