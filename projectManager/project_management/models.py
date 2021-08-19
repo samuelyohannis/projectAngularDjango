@@ -284,7 +284,7 @@ class WeredaKebeleProjectProgress(models.Model):
 class CountryProjectReport(models.Model): 
     
     project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True )
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=1)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
@@ -293,7 +293,7 @@ class CountryProjectReport(models.Model):
      
 class RegionProjectReport(models.Model):
    
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=2)
     project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
@@ -302,7 +302,7 @@ class RegionProjectReport(models.Model):
    
     date = models.DateTimeField(auto_now=True)
 class ZoneProjectReport(models.Model):
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=3)
     project = models.ForeignKey(ZoneProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
@@ -311,7 +311,7 @@ class ZoneProjectReport(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class WeredaProjectReport(models.Model):
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=4)
     project = models.ForeignKey(WeredaProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
@@ -319,7 +319,7 @@ class WeredaProjectReport(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True) 
 class CityProjectReport(models.Model):
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=5)
     project = models.ForeignKey(CityProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
@@ -327,7 +327,7 @@ class CityProjectReport(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class SubCityProjectReport(models.Model):
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=7)
     project = models.ForeignKey(SubCityProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
@@ -335,7 +335,7 @@ class SubCityProjectReport(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class KebeleProjectReport(models.Model):
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=6)
     project = models.ForeignKey(KebeleProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
@@ -343,7 +343,7 @@ class KebeleProjectReport(models.Model):
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
 class WeredaKebeleProjectReport(models.Model):
-    worklevel=models.IntegerField(default=9)
+    worklevel=models.IntegerField(default=11)
     project = models.ForeignKey(WeredaKebeleProject,on_delete = models.CASCADE,null=True,)
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
