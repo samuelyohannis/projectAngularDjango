@@ -62,14 +62,17 @@ INSTALLED_APPS = [
     'list_management',
     'detail_management',
     'update_management',
-    'delete_management'
+    'delete_management',
+    'notification',
+    'chat',
+    'channels',
     
 ]
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
      'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
-     'TOKEN_TTL': timedelta(hours=24)
+     'TOKEN_TTL': None
 }
 
 MIDDLEWARE = [
@@ -102,7 +105,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'projectManager.wsgi.application'
-
+ASGI_APPLICATION = 'projectManager.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

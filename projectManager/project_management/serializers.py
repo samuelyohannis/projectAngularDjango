@@ -153,8 +153,13 @@ class WeredaKebeleProjectSerializer(serializers.ModelSerializer):
       
 class CountryProjectReportFileSerializer(serializers.ModelSerializer):
   class Meta:
+    model =  CountryProjectReportAssessment
+    fields = '__all__'   
+    
+class CountryProjectReportAssessmentSerializer(serializers.ModelSerializer):
+  class Meta:
     model =  CountryProjectReportFile 
-    fields = '__all__'       
+    fields = '__all__'          
 class RegionProjectReportFileSerializer(serializers.ModelSerializer):
    class Meta:
     model =  RegionProjectReportFile 
@@ -196,6 +201,7 @@ class CountryProjectReportSerializer(serializers.ModelSerializer):
   def to_representation(self, instance):
         representation = super(CountryProjectReportSerializer, self).to_representation(instance)
         representation['countryprojectreportfile'] = CountryProjectReportFileSerializer(instance.countryprojectreportfile_set.all(), many=True).data
+        representation['countryprojectreportassessment'] = CountryProjectReportAssessmentSerializer(instance.countryprojectreportassessment_set.all(), many=True).data
         return representation      
 class RegionProjectReportSerializer(serializers.ModelSerializer):
   class Meta:

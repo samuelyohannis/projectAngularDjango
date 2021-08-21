@@ -50,11 +50,12 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('user/',include('user_management.urls')),
     path('project/',include('project_management.urls')),
+    path('notification/',include('notification_management.urls')),
     path('',include('location_management.urls')),
     path('comment/',include('comment_management.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    
+    path('chat/',include('chat.urls')),
   
 ]
 urlpatterns = urlpatterns + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

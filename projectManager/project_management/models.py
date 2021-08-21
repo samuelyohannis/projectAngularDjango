@@ -288,6 +288,7 @@ class CountryProjectReport(models.Model):
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
     name = models.CharField(max_length=1000,null=True)
     desc =models.TextField(default='report')
+    is_assesed= models.BooleanField(default=False)
     percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
      
@@ -385,4 +386,10 @@ class WeredaKebeleProjectReportFile(models.Model):
     date_modified = models.DateTimeField(auto_now=True)   
     
     
-                          
+class CountryProjectReportAssessment(models.Model): 
+    report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
+    worklevel=models.IntegerField(default=1)
+    name = models.CharField(max_length=1000,null=True)
+    desc = models.TextField(default='report')
+    percentage = models.IntegerField(default=0)
+    date = models.DateTimeField(auto_now=True)                          
