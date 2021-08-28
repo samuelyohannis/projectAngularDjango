@@ -384,8 +384,25 @@ class WeredaKebeleProjectReportFile(models.Model):
     file = models.FileField(upload_to = 'files/weredaKebeleProJect/report/',null=True)
     report = models.ForeignKey(WeredaKebeleProjectReport,on_delete = models.CASCADE,null=True )
     date_modified = models.DateTimeField(auto_now=True)   
+class CountryProjectStackeHolder(models.Model):
+    name= models.TextField()
+    img1 = models.ImageField(upload_to = 'images/country-project/stackeholder/',null=True)
+    project = models.ManyToManyField(CountryProject,)
+    desc = models.TextField()
+    date_modified = models.DateTimeField(auto_now=True)    
+          
+class CountryProjectRelatedIsue(models.Model):
+    name= models.TextField()
+    img1 = models.ImageField(upload_to = 'images/country-project/related-isue/',null=True)
+    project = models.ForeignKey(CountryProject,null=True,on_delete = models.SET_NULL)
+    desc = models.TextField()
+    date_modified = models.DateTimeField(auto_now=True)   
     
-    
+class CountryProjectRelatedIsueFile(models.Model):
+    file = models.FileField(upload_to = 'files/countryProJect/related-isue/',null=True)
+    country_project_related_isue = models.ForeignKey(CountryProjectRelatedIsue,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)         
+
 class CountryProjectReportAssessment(models.Model): 
     report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
     worklevel=models.IntegerField(default=1)

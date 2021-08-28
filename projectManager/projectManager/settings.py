@@ -68,6 +68,12 @@ INSTALLED_APPS = [
     'channels',
     
 ]
+CHANNEL_LAYERS = {
+    "default": {
+          "BACKEND": "channels.layers.InMemoryChannelLayer"
+        
+    },
+}
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
