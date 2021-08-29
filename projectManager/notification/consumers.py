@@ -25,6 +25,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
    async def connect(self,):
        gb['cxt']=self
        self.room_name = self.scope['url_route']['kwargs']['group_name']   
+       self.user = self.scope['user']
        #    self.room_group_name = 'notification_%s' % self.room_name
        self.room_group_name = 'notification_'+ self.room_name
            
@@ -32,6 +33,8 @@ class NotificationConsumer(AsyncWebsocketConsumer):
        await self.channel_layer.group_add(self.room_group_name,self.channel_name)
        await self.accept() 
       
+       await self.channel_layer.group_send(self.room_group_name,
+                                           {"type":"asyncGetProfile"})
        await self.channel_layer.group_send(self.room_group_name,
                                            {"type":"notications","notications":"You are connected to notification stream"}) 
        self.uuid3=[]
@@ -69,14 +72,15 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
    @database_sync_to_async
    def get_serialized_current_profile(self):
-    return ProfileSerializer(Profile.objects.get(user=self.scope["user"].id)).data
+    print(self.user.id)
+    return ProfileSerializer(Profile.objects.filter(user=self.user.id),many=True).data
 
    async def notications(self,event):
           notifications = await self.get_serialized_notifications()
           await self.send(text_data=json.dumps({"notifications":notifications,"message":"You are connected to notification stream"}))
-   async def test(self,event):
-          tester = event['tester'] 
-          await self.send(text_data=json.dumps({"tester":tester}))   
+   async def asyncGetProfile(self,event):
+          tester = await self.get_serialized_current_profile()
+          await self.send(text_data=json.dumps({"profile":tester}))   
         
           
     
@@ -160,33 +164,37 @@ class NotificationConsumer1(WebsocketConsumer):
       
    def connect(self,):
    
-       self.room_name = self.scope['url_route']['kwargs']['group_name']   
+       self.room_name = self.scope['url_route']['kwargs']['group_name'] 
+       self.profile_id = self.scope['url_route']['kwargs']['profile_id']   
        self.group_name = 'notification_'+ self.scope['url_route']['kwargs']['group_name']
     #    self.room_group_name = 'notification_'+ self.room_name
-           
+       self.user = self.scope["user"]    
        
        async_to_sync(self.channel_layer.group_add)(self.group_name,self.channel_name)
     
        self.accept() 
-       
+       async_to_sync(self.channel_layer.group_send)(self.group_name,
+                                           {"type":"profile"})
       
-        # @receiver(post_save,sender=CountryProject,weak=False)
+       # @receiver(post_save,sender=CountryProject,weak=False)
  
        def my(sender,**kwargs) :
-            print('check my Signal')
+            """ print('check my Signal')
             print(self.group_name)
-        
-            self.send(text_data=json.dumps({"tester":'dedeb'}))  
+         """
+            self.send(text_data=json.dumps({"tester": self.scope['user']}))  
        '''  async_to_sync(self.channel_layer.group_send)('notification_sav',
                                            {"type":"test1","tester":"sam"} ) '''
         
        if self.group_name == 'notification_sav':
         post_save.connect(my,sender=CountryProject,dispatch_uid=uuid.uuid4())  
  
-   
-   def test1(self,event):
-          tester = event['tester'] 
-          self.send(text_data=json.dumps({"tester":tester}))  
+   def get_serialized_current_profile(self):
+        print(self.profile_id) 
+        return ProfileSerializer(Profile.objects.get(pk= self.profile_id )).data
+   def profile(self,event):
+     
+          self.send(text_data=json.dumps({"profile": self.get_serialized_current_profile()}))  
    def test(self,event):
           tester = event['tester'] 
           self.send(text_data=json.dumps({"tester":tester}))
