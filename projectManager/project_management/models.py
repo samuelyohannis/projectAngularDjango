@@ -403,10 +403,10 @@ class CountryProjectRelatedIsueFile(models.Model):
     country_project_related_isue = models.ForeignKey(CountryProjectRelatedIsue,on_delete = models.CASCADE,null=True )
     date_modified = models.DateTimeField(auto_now=True)         
 
-class CountryProjectReportAssessment(models.Model): 
+class CountryProjectReportReview(models.Model): 
     report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
     worklevel=models.IntegerField(default=1)
     name = models.CharField(max_length=1000,null=True)
     desc = models.TextField(default='report')
-    percentage = models.IntegerField(default=0)
+    mark_percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)                          
