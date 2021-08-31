@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 class chat(models.Model):
     pass
-class Notification(models.Model):
+class CountryNotification(models.Model):
     profile = models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True)
     title = models.CharField(max_length=100)
     is_viewed = models.BooleanField(default=False)

@@ -1,3 +1,4 @@
+from user_management.models import Profile
 from django.db import models
 
 # Create your models here.

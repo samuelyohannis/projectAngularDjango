@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'notification',
     'chat',
     'channels',
+    'subscription'
     
 ]
 CHANNEL_LAYERS = {

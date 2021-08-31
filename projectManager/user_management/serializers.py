@@ -1,3 +1,4 @@
+from subscription.serializers import SubscriptionSerializer
 from .models import *
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
@@ -29,3 +30,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields =  '__all__'                      
+        
+    def to_representation(self, instance):
+        representation = super(ProfileSerializer, self).to_representation(instance)
+        representation['subscription'] = SubscriptionSerializer(instance.subscription_set.all(), many=True).data
+       
+        return representation    
