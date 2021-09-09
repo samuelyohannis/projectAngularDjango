@@ -263,7 +263,10 @@ class CountryProjectReportReviewSerializer(serializers.ModelSerializer):
   class Meta:
     model =  CountryProjectReportReview
     fields = '__all__'                       
-      
+class CountryProjectNotificationSerializer(serializers.ModelSerializer):
+  class Meta:
+    model =  CountryProjectNotification
+    fields = '__all__'        
 class CountryProjectReportSerializer(serializers.ModelSerializer):
   class Meta:
     model = CountryProjectReport

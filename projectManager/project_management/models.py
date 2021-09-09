@@ -58,27 +58,7 @@ class ZoneProject(models.Model):
         newHeight =int(img.height*newWidth/img.width)
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path) 
-class CountryProject(models.Model):
-    name = models.CharField(max_length=100,null=True)
-    catagory =  models.IntegerField(null=True)
-    completion = models.IntegerField(default=0)
-    bujdet = models.IntegerField(default=0)
-    level= models.IntegerField(null=True)
-    profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
-    desc = models.TextField(null=True)
-    img = models.ImageField(null=True,upload_to='images/countryProject',default='images/project-logo.png')
-    country = models.ForeignKey(Country,on_delete=models.CASCADE,default=1)
-    reported = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now=True)  
-    def save(self,*args,**kwargs):
-        super().save(*args,**kwargs)
-        img  = Image.open(self.img.path)
-        newWidth=500
-        newHeight =int(img.height*newWidth/img.width)
-        img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
-        img1.save(self.img.path)
+
 
 class RegionProject(models.Model):
     name = models.CharField(max_length=100,null=True)
@@ -213,10 +193,7 @@ class WeredaKebeleProject(models.Model):
         newHeight =int(img.height*newWidth/img.width)
         img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
         img1.save(self.img.path)           
-class CountryProjectFile(models.Model):
-    file = models.FileField(upload_to = 'files/countryProJect',null=True)
-    project = models.ForeignKey(CountryProject,on_delete=models.CASCADE,null=True)
-    date_modified = models.DateTimeField(auto_now=True)  
+
 class RegionProjectFile(models.Model):
     file = models.FileField(upload_to = 'files/regionProJect',null=True)
     project= models.ForeignKey(RegionProject,on_delete=models.CASCADE,null=True )
@@ -247,10 +224,7 @@ class WeredaKebeleProjectFile(models.Model):
     date_modified = models.DateTimeField(auto_now=True) 
  
     
-class CountryProjectProgress(models.Model): 
-    progress = models.OneToOneField(Progress,on_delete = models.CASCADE,null=True)
-    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True)
-    date_modified = models.DateTimeField(auto_now=True)    
+
 class RegionProjectProgress(models.Model):
     progress = models.OneToOneField(Progress,on_delete = models.CASCADE,null=True)
     project = models.ForeignKey(RegionProject,on_delete = models.CASCADE,null=True)
@@ -281,16 +255,7 @@ class WeredaKebeleProjectProgress(models.Model):
     date_modified = models.DateTimeField(auto_now=True)                                
     
     
-class CountryProjectReport(models.Model): 
-    
-    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True )
-    worklevel=models.IntegerField(default=1)
-    profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
-    name = models.CharField(max_length=1000,null=True)
-    desc =models.TextField(default='report')
-    is_assesed= models.BooleanField(default=False)
-    percentage = models.IntegerField(default=0)
-    date = models.DateTimeField(auto_now=True)
+
      
 class RegionProjectReport(models.Model):
    
@@ -355,10 +320,7 @@ class CityProjectReportFile(models.Model):
     file = models.FileField(upload_to = 'files/cityProJect/report/',null=True)
     report = models.ForeignKey(CityProjectReport,on_delete = models.CASCADE,null=True )
     date_modified = models.DateTimeField(auto_now=True)        
-class CountryProjectReportFile(models.Model):
-    file = models.FileField(upload_to = 'files/countryProJect/report/',null=True)
-    report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
-    date_modified = models.DateTimeField(auto_now=True)       
+    
 class RegionProjectReportFile(models.Model):
     file = models.FileField(upload_to = 'files/regionProJect/report/',null=True)
     report = models.ForeignKey(RegionProjectReport,on_delete = models.CASCADE,null=True )
@@ -384,6 +346,88 @@ class WeredaKebeleProjectReportFile(models.Model):
     file = models.FileField(upload_to = 'files/weredaKebeleProJect/report/',null=True)
     report = models.ForeignKey(WeredaKebeleProjectReport,on_delete = models.CASCADE,null=True )
     date_modified = models.DateTimeField(auto_now=True)   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CountryProject(models.Model):
+    name = models.CharField(max_length=100,null=True)
+    catagory =  models.IntegerField(null=True)
+    completion = models.IntegerField(default=0)
+    bujdet = models.IntegerField(default=0)
+    level= models.IntegerField(null=True)
+    profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    desc = models.TextField(null=True)
+    img = models.ImageField(null=True,upload_to='images/countryProject',default='images/project-logo.png')
+    country = models.ForeignKey(Country,on_delete=models.CASCADE,default=1)
+    reported = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now=True)  
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img  = Image.open(self.img.path)
+        newWidth=500
+        newHeight =int(img.height*newWidth/img.width)
+        img1 = resizeimage.resize_thumbnail(img, [newWidth, newHeight])
+        img1.save(self.img.path)
+
+
+class CountryProjectFile(models.Model):
+    file = models.FileField(upload_to = 'files/countryProJect',null=True)
+    project = models.ForeignKey(CountryProject,on_delete=models.CASCADE,null=True)
+    date_modified = models.DateTimeField(auto_now=True)  
+
+class CountryProjectProgress(models.Model): 
+    progress = models.OneToOneField(Progress,on_delete = models.CASCADE,null=True)
+    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE,null=True)
+    date_modified = models.DateTimeField(auto_now=True)    
+
+class CountryProjectReport(models.Model): 
+    
+    project = models.ForeignKey(CountryProject,on_delete = models.CASCADE )
+    worklevel=models.IntegerField(default=1)
+    profile = models.ForeignKey(Profile,on_delete = models.CASCADE,default=1)
+    name = models.CharField(max_length=1000,null=True)
+    desc =models.TextField(default='report')
+    is_assesed= models.BooleanField(default=False)
+    percentage = models.IntegerField(default=0)
+    date = models.DateTimeField(auto_now=True)
+class CountryProjectReportFile(models.Model):
+    file = models.FileField(upload_to = 'files/countryProJect/report/',null=True)
+    report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
+    date_modified = models.DateTimeField(auto_now=True)   
+
+
 class CountryProjectStackeHolder(models.Model):
     name= models.TextField()
     img1 = models.ImageField(upload_to = 'images/country-project/stackeholder/',null=True)
@@ -407,6 +451,22 @@ class CountryProjectReportReview(models.Model):
     report = models.ForeignKey(CountryProjectReport,on_delete = models.CASCADE,null=True )
     worklevel=models.IntegerField(default=1)
     name = models.CharField(max_length=1000,null=True)
-    desc = models.TextField(default='report')
+    desc = models.TextField(default='report review')
     mark_percentage = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)                          
+    
+class CountryNotification(models.Model):
+    recieved_from = models.IntegerField(null=True)
+    send_to = models.IntegerField(null=True)
+    title = models.CharField(max_length=100)
+    is_viewed = models.BooleanField(default=False)
+    desc = models.TextField(null=True)
+    date = models.DateTimeField(auto_now=True)  
+    
+class CountryProjectNotification(models.Model):
+    recieved_from = models.IntegerField(null=True)
+    send_to = models.IntegerField(null=True)
+    title = models.CharField(max_length=100)
+    is_viewed = models.BooleanField(default=False)
+    desc = models.TextField(null=True)
+    date = models.DateTimeField(auto_now=True)      
